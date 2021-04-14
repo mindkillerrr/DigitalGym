@@ -33,6 +33,23 @@ public class IO{
         }
         return o;
     }
+
+    //read(Object o,String pk)
+    //write(Object o,String pk)
+    //delete(Object o,String pk)
+    //create
+
+    /**
+     * used in classes' toString --PZ
+     * @param o
+     * @return
+     */
+    public static String printObject(Object o){
+        Gson gson = new GsonBuilder().create();
+        return gson.toJson(o);
+    }
+
+
     public static int  Output_Info(Object o, String primary_key)
     {
         return 1;
