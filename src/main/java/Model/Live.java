@@ -4,112 +4,78 @@ import java.util.ArrayList;
 
 public class Live {
 
-    String Trainer, State, Info, Type, path;
-    int Rate_of_Process, Start_time, End_time;
-    int price;
+    String course_id,name,trainer_id,client_id,trainer,type,state,info;
     int rank;
-    String id;
-    ArrayList<Plan> Day_Plans = new ArrayList<Plan>();
-
-    public Live(String trainer, String state, String info, String type,
-                int rate_of_Process, int start_time, int end_time,
-                ArrayList<String> video_Path, ArrayList<Plan> day_Plans) {
-        Trainer = trainer;
-        State = state;
-        Info = info;
-        Type = type;
-        Rate_of_Process = rate_of_Process;
-        Start_time = start_time;
-        End_time = end_time;
-
-        Day_Plans = day_Plans;
-    }
+    double price;
+    ArrayList<String> plan;
+    ArrayList<LivePlan> live_plan;
 
     public Live() {
 
     }
 
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(String trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    public String getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(String client_id) {
+        this.client_id = client_id;
+    }
+
     public String getTrainer() {
-        return Trainer;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public String getInfo() {
-        return Info;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public int getRate_of_Process() {
-        return Rate_of_Process;
-    }
-
-    public int getStart_time() {
-        return Start_time;
-    }
-
-    public int getEnd_time() {
-        return End_time;
-    }
-
-
-    public ArrayList<Plan> getDay_Plans() {
-        return Day_Plans;
+        return trainer;
     }
 
     public void setTrainer(String trainer) {
-        Trainer = trainer;
+        this.trainer = trainer;
     }
 
-    public void setState(String state) {
-        State = state;
-    }
-
-    public void setInfo(String info) {
-        Info = info;
+    public String getType() {
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        this.type = type;
     }
 
-    public void setRate_of_Process(int rate_of_Process) {
-        Rate_of_Process = rate_of_Process;
+    public String getState() {
+        return state;
     }
 
-    public void setStart_time(int start_time) {
-        Start_time = start_time;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public void setEnd_time(int end_time) {
-        End_time = end_time;
+    public String getInfo() {
+        return info;
     }
 
-
-
-    public void setDay_Plans(ArrayList<Plan> day_Plans) {
-        Day_Plans = day_Plans;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public int getRank() {
@@ -120,15 +86,45 @@ public class Live {
         this.rank = rank;
     }
 
-    public void addDay_Plans(Plan p) {
-        Day_Plans.add(p);
+    public double getPrice() {
+        return price;
     }
 
-    public String getId() {
-        return id;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public ArrayList<String> getPlan() {
+        return plan;
+    }
+
+    public void setPlan(ArrayList<String> plan) {
+        this.plan = plan;
+    }
+
+    public ArrayList<LivePlan> getLive_plan() {
+        return live_plan;
+    }
+
+    public void setLive_plan(ArrayList<LivePlan> live_plan) {
+        this.live_plan = live_plan;
+    }
+
+    @Override
+    public String toString() {
+        return "Live{" +
+                "course_id='" + course_id + '\'' +
+                ", name='" + name + '\'' +
+                ", trainer_id='" + trainer_id + '\'' +
+                ", client_id='" + client_id + '\'' +
+                ", trainer='" + trainer + '\'' +
+                ", type='" + type + '\'' +
+                ", state='" + state + '\'' +
+                ", info='" + info + '\'' +
+                ", rank=" + rank +
+                ", price=" + price +
+                ", plan=" + plan +
+                ", live_plan=" + live_plan +
+                '}';
     }
 }

@@ -229,7 +229,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="FreeFor" layoutX="95.0" layoutY="141.0" text="· free for some classes">
+                        <Label fx:id="FreeFor" layoutX="95.0" layoutY="141.0" text="· free for some courses">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -249,7 +249,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="All" layoutX="494.0" layoutY="144.0" text="· all classes free">
+                        <Label fx:id="All" layoutX="494.0" layoutY="144.0" text="· all courses free">
                            <font>
                               <Font size="18.0" />
                            </font>
