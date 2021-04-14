@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.ClientMainSceneController">
+   <children>
+      <TabPane layoutX="14.0" layoutY="14.0" prefHeight="562.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Main Page">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="167.0" prefHeight="278.0" prefWidth="461.0">
+                           <content>
+                              <FlowPane fx:id="mainPageFlowPane" alignment="TOP_CENTER" hgap="20.0" prefHeight="266.0" prefWidth="448.0" vgap="20.0" />
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="475.0" layoutY="14.0" prefHeight="109.0" prefWidth="290.0">
+                           <content>
+                              <TextArea fx:id="mainPageNoticeTextArea" prefHeight="109.0" prefWidth="275.0" />
+                           </content>
+                        </ScrollPane>
+                        <VBox alignment="TOP_CENTER" layoutX="488.0" layoutY="142.0" prefHeight="304.0" prefWidth="238.0">
+                           <children>
+                              <Label prefHeight="19.0" prefWidth="245.0" text="              Overview">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="mainPageOverviewText" editable="false" prefHeight="332.0" prefWidth="238.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></TextArea>
+                           </children>
+                        </VBox>
+                        <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="134.0" prefWidth="450.0">
+                           <children>
+                              <ChoiceBox fx:id="mainPageFilterType" layoutX="54.0" layoutY="76.0" prefWidth="150.0" />
+                              <Button fx:id="mainPageSearchButton" layoutX="225.0" layoutY="73.0" mnemonicParsing="false" onAction="#mainPageSearchClicked" text="Search">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
+                              <VBox layoutX="321.0" layoutY="50.0" prefHeight="50.0" prefWidth="100.0" spacing="5.0">
+                                 <children>
+                                    <RadioButton fx:id="mainPageClassButton" mnemonicParsing="false" text="Class">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="mainPageLiveButton" mnemonicParsing="false" text="Live">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="My Classes &amp; Live">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="166.0" prefHeight="278.0" prefWidth="461.0">
+                           <content>
+                              <FlowPane fx:id="myClassFlowPane" alignment="TOP_CENTER" hgap="20.0" prefHeight="266.0" prefWidth="448.0" vgap="20.0" />
+                           </content>
+                        </ScrollPane>
+                        <VBox alignment="TOP_CENTER" layoutX="486.0" layoutY="140.0" prefHeight="304.0" prefWidth="238.0">
+                           <children>
+                              <Label prefHeight="19.0" prefWidth="245.0" text="              Overview">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextArea fx:id="myClassOverviewText" prefHeight="332.0" prefWidth="238.0" />
+                           </children>
+                        </VBox>
+                        <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="149.0" prefWidth="468.0">
+                           <children>
+                              <Button fx:id="myClassSearchButton" layoutX="225.0" layoutY="74.0" mnemonicParsing="false" onAction="#myClassSearchClicked" text="Search">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
+                              <ChoiceBox fx:id="myClassFilterType" layoutX="54.0" layoutY="76.0" prefWidth="150.0" />
+                              <VBox layoutX="319.0" layoutY="50.0" prefHeight="53.0" prefWidth="88.0" spacing="5.0">
+                                 <children>
+                                    <RadioButton fx:id="myClassClassButton" mnemonicParsing="false" text="Class">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="myClassLiveButton" mnemonicParsing="false" text="Live">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="My Account">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Circle fill="DODGERBLUE" layoutX="56.0" layoutY="56.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="Text" layoutX="118.0" layoutY="40.0" prefHeight="32.0" prefWidth="132.0" text="UserName:">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Text1" layoutX="118.0" layoutY="80.0" prefHeight="32.0" prefWidth="134.0" text="Premium: ">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="premiumLabel" layoutX="270.0" layoutY="80.0" prefHeight="32.0" prefWidth="201.0" text="Premium/Normal">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="myAccountUserNameLabel" layoutX="270.0" layoutY="41.0" prefHeight="15.0" prefWidth="186.0" text="Panzheng">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextArea layoutX="388.0" layoutY="169.0" prefHeight="257.0" prefWidth="369.0" text="My Plan" />
+                        <FlowPane alignment="TOP_RIGHT" hgap="30.0" layoutX="16.0" layoutY="169.0" prefHeight="282.0" prefWidth="311.0" vgap="20.0">
+                           <children>
+                              <Label text="Age">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="myAccountAgeField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="23.0" prefWidth="187.0" />
+                              <Label text="Weight">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="myAccountWeightField">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label text="Height">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="myAccountHeightField">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label text="BMI">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="myAccountBMIField">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Label text="Fatty_Lipase">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="myAccountFattyField">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <Button mnemonicParsing="false" onAction="#myAccountSaveButtonClicked" prefHeight="29.0" prefWidth="92.0" text="Save">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </FlowPane>
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" layoutX="388.0" layoutY="443.0" prefHeight="29.0" prefWidth="313.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#changeEmailButtonCliecked" prefHeight="29.0" prefWidth="156.0" text="Change Email">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" prefHeight="29.0" prefWidth="147.0" text="Change Password">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Premier">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="65.0" layoutY="64.0" stroke="BLACK" strokeType="INSIDE" width="244.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="467.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" width="243.0" />
+                        <Label fx:id="Normal" layoutX="132.0" layoutY="86.0" text="Normal">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="FreeFor" layoutX="95.0" layoutY="141.0" text="· free for some classes">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="PayFor" layoutX="95.0" layoutY="170.0" text="· pay for live sessions">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Discount" layoutX="494.0" layoutY="199.0" text="· discount for live">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Extra" layoutX="494.0" layoutY="171.0" text="· extra free live book">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="All" layoutX="494.0" layoutY="144.0" text="· all classes free">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Premier" layoutX="540.0" layoutY="76.0" text="Premier">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Off" layoutX="542.0" layoutY="251.0" text="off">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="discountRatio" layoutX="479.0" layoutY="255.0" prefHeight="24.0" prefWidth="50.0" textAlignment="RIGHT" textFill="#099e01">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buy" layoutX="558.0" layoutY="333.0" mnemonicParsing="false" onAction="#premierBuyClicked" text="Buy">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="543.0" layoutY="288.0" text="Month">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="monthChoiceBox" layoutX="479.0" layoutY="293.0" onAction="#premierMonthSelected" prefHeight="23.0" prefWidth="59.0" />
+                        <Label fx:id="premierOriginalPriceLabel" layoutX="599.0" layoutY="227.0" prefHeight="32.0" prefWidth="100.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="premierDiscountPriceLabel" layoutX="599.0" layoutY="260.0" prefHeight="32.0" prefWidth="106.0" textFill="#006b20">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
