@@ -27,7 +27,10 @@ public class Client extends User{
         setGeneric_plan("initial text");
 
     }
+    public Client()
+    {
 
+    }
     /**
      * need to be finished by WHY --PZ 4.14 2130
      */

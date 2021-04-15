@@ -16,10 +16,9 @@ public class Control {
      * @param password
      * @return "no user"
      */
-    static String login(String name,String password){
-        Client client = IO.read(new Client(),name);
-        if(client==null) return null;
-        else ()//check
+    static String login(String name,String password) throws IOException {
+        Client client = (Client)IO.read(new Client(),name);
+        return new String();
     }
 
 
