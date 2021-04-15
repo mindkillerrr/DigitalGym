@@ -1,5 +1,6 @@
 package ViewController;
 
+import Model.Control;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +14,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import Model.*;
 
 public class LoginController {
 
@@ -37,7 +37,7 @@ public class LoginController {
            afterLoginScene.setUserData(controller);
            controller.client = (Client)IO.read(new Client(),"11111111111");
            controller.buildScene();
-           //controller.id = name;
+           controller.id = name;
            //System.out.println(controller.client.getName());
            window.show();
        }
