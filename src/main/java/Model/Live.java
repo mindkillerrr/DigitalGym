@@ -34,18 +34,6 @@ public class Live extends GeneralCourse{
 
     @Override
     public String toString() {
-        return "Live{" +
-                "course_id='" + course_id + '\'' +
-                ", name='" + name + '\'' +
-                ", trainer_id='" + trainer_id + '\'' +
-                ", trainer='" + trainer + '\'' +
-                ", type='" + type + '\'' +
-                ", info='" + info + '\'' +
-                ", plan=" + plan +
-                ", rank=" + rank +
-                ", price=" + price +
-                ", live_plan=" + live_plan +
-                ", client_id='" + client_id + '\'' +
-                '}';
+        return "use IO.printObject instead.";
     }
 }
