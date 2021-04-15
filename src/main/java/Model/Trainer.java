@@ -18,6 +18,10 @@ public class Trainer extends User{
 
     }
 
+    public Trainer() {
+
+    }
+
     public HashSet<Date> getOccupation() {
         return occupation;
     }
@@ -52,8 +56,21 @@ public class Trainer extends User{
     public void deleteCourse(String course_id){
 
     }
-    public void addLive(Live live){
 
+    /**
+     * add a live subscribed by client to trainer
+     * @param live
+     */
+    public void addLive(Live live) throws Exception {
+        for(Live l : my_live){
+            if(live.getCourse_id().equals(live.getCourse_id())){
+                if(l.getClient_id().equals(live.getClient_id())){
+                    Exception e = new Exception("live already subscribed by this client");
+                    throw e;
+                }
+            }
+        }
+        my_live.add(live);
     }
     public void deleteLive(){
 

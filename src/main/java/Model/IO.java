@@ -5,24 +5,19 @@ import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class IO{
-    public static Object Input_Info(Object o, String primary_key) throws IOException {
-
-
-
-            File file = new File("src\\main\\java\\Data\\client.json");
-            //BufferedReader buffered_reader = new BufferedReader(new FileReader("src\\"+primary_key+".json"));
-
-
-            String content= FileUtils.readFileToString(file,"UTF-8");
+    public static Object read(Object o, String primary_key) throws IOException {
+        File file = new File("src\\target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
+        //BufferedReader buffered_reader = new BufferedReader(new FileReader("src\\"+primary_key+".json"));
+        String content= FileUtils.readFileToString(file,"UTF-8");
         Gson gson;
         try {
             GsonBuilder builder = new GsonBuilder()
                     .serializeNulls()
-                    .setDateFormat("yyyy-MM-dd HH:mm")
-                    .setPrettyPrinting()
-                    ;
+                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .setPrettyPrinting();
             gson= builder.create();
             o = gson.fromJson(content, o.getClass());
 
@@ -30,6 +25,7 @@ public class IO{
         catch (Exception e)
         {
             e.printStackTrace();
+
         }
         return o;
     }
@@ -50,17 +46,56 @@ public class IO{
     }
 
 
-    public static int  Output_Info(Object o, String primary_key)
+    public static int  write(Object o, String primary_key)
     {
+        try{
+            Gson gson;
+            GsonBuilder builder = new GsonBuilder()
+                    .serializeNulls()
+                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .setPrettyPrinting();
+            gson = builder.create();
+            String content = gson.toJson(o,o.getClass());
+            File file = new File("src\\target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
+            FileUtils.writeStringToFile(file,content);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return 0;
+        }
         return 1;
     }
-    public static int Delete_Info(Object o, String primary_key)
-    {
-        return 1;
+    public static boolean create(Object o, String primary_key) throws IOException {
+        File file = new File("src\\target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
+        return file.createNewFile();
+    }
+    public static boolean Delete_Info(Object o, String primary_key) throws IOException {
+        File file = new File("src\\target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
+        return file.delete();
+    }
+    public static ArrayList<Live> showAllLive() throws IOException {
+        File file = new File("src\\target\\classes\\Data\\"+Live.class);
+        File[] fileName = file.listFiles();
+        ArrayList<Live> ans = new ArrayList<>();
+        for(int i=0;i<fileName.length;i++)
+        {
+            ans.add((Live) read(new Live(), fileName[i].getName()));
+        }
+        return  ans;
+    }
+    public static ArrayList<Course> showAllCourse() throws IOException {
+        File file = new File("src\\target\\classes\\Data\\"+Course.class);
+        File[] fileName = file.listFiles();
+        ArrayList<Course> ans = new ArrayList<>();
+        for(int i=0;i<fileName.length;i++)
+        {
+            ans.add((Course) read(new Course(), fileName[i].getName()));
+        }
+        return  ans;
     }
     public static void main(String[] args) throws IOException {
-        Client p = (Client) Input_Info(new Client(),"1");
+        Client p = (Client) read(new Client(),"1");
         System.out.println(p.toString());
-        System.out.println(p.my_live.get(0).toString());
+
     }
 }
