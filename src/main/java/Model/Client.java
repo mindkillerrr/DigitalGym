@@ -7,8 +7,8 @@ public class Client extends User{
 
     private int rank;//0 for normal, 1 for premium
     private Date premium_end_date;
-    private int height;
-    private int weight;
+    private int height; //in meter
+    private int weight; //in kg
     private double BMI;
     private double body_fat_rate;
     private String sex;//Male,Female
@@ -38,10 +38,10 @@ public class Client extends User{
 
     }
     /**
-     * need to be finished by WHY --PZ 4.14 2130
+     * BMI is calculated by dividing weight in kilograms by the square of height in meters
      */
     public void cauculateBMIandBody_fat_rate(){
-
+        BMI = (double) weight/(height * height);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Client extends User{
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -123,7 +123,7 @@ public class Client extends User{
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -131,7 +131,7 @@ public class Client extends User{
         return BMI;
     }
 
-    public void setBMI(double BMI) {
+    public void setBMI(String BMI) {
         this.BMI = BMI;
     }
 
@@ -139,7 +139,7 @@ public class Client extends User{
         return body_fat_rate;
     }
 
-    public void setBody_fat_rate(double body_fat_rate) {
+    public void setBody_fat_rate(String body_fat_rate) {
         this.body_fat_rate = body_fat_rate;
     }
 

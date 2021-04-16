@@ -2,6 +2,7 @@ package ViewController;
 
 import Model.Control;
 import Model.Live;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,8 +20,11 @@ import javafx.scene.control.ToggleGroup;
 import org.xml.sax.SAXException;
 
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,6 +39,7 @@ public class ClientMainSceneController {
     public TextField myAccountBMIField;//this field is about body information in my account
     public TextField myAccountHeightField;//this field is about body information in my account
     public TextField myAccountFattyField;//this field is about body information in my account
+    public TextArea myPlan; //this field is about general plan in my account
     public FlowPane mainPageFlowPane;//this plan hold classes in main page
     public TextArea mainPageNoticeTextArea;//this field provide notice on main page
     public FlowPane myClassFlowPane;//this plan hold classes in my class
@@ -67,6 +72,7 @@ public class ClientMainSceneController {
 
     public Model.Client client;
     public String id;
+
 
 
     // public Label premiumLabel;
@@ -111,7 +117,7 @@ public class ClientMainSceneController {
         myAccountWeightField.setText(""+client.getWeight());
         myAccountHeightField.setText(""+client.getHeight());
         myAccountBMIField.setText(""+client.getBMI());
-        myAccountFattyField.setText(""+client.getFatty_Lipase());
+        myAccountFattyField.setText(""+client.getBody_fat_rate());
         updateClassesInMainPage();
         updateClassesInMyClass();
         myAccountUserNameLabel.setText(client.getName());
@@ -388,7 +394,14 @@ public class ClientMainSceneController {
      * @param actionEvent
      */
     public void myAccountSaveButtonClicked(ActionEvent actionEvent) {
-
+        //upload the changed data
+        client.setAge(myAccountAgeField.getSelectionModel().selectedIndexProperty().intValue()+8);
+        client.setWeight(""+myAccountWeightField.getText());
+        client.setHeight(""+myAccountHeightField.getText());
+        client.setBMI(""+ myAccountBMIField.getText());
+        client.setBody_fat_rate(""+myAccountFattyField.getText());
+        //update the generic plan
+        myPlan.setText(""+client.getGeneric_plan());
     }
 
     /**
