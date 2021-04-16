@@ -38,8 +38,10 @@ public class ClientMainSceneController {
     public FlowPane mainPageFlowPane;//this plan hold classes in main page
     public TextArea mainPageNoticeTextArea;//this field provide notice on main page
     public FlowPane myClassFlowPane;//this plan hold classes in my class
+    public TextArea myPlan;//this field is about generic plan in my account
     public TextArea mainPageOverviewText;
     public TextArea myClassOverviewText;
+
     public ChoiceBox mainPageFilterType;
     public Button mainPageSearchButton;
     public RadioButton mainPageClassButton;
@@ -66,6 +68,7 @@ public class ClientMainSceneController {
     public Label myAccountUserNameLabel;
 
     public Model.Client client;
+
     //public String id; no need --PZ
 
 
@@ -385,7 +388,14 @@ public class ClientMainSceneController {
      * @param actionEvent
      */
     public void myAccountSaveButtonClicked(ActionEvent actionEvent) {
-
+        //upload the changed data
+        client.setAge(myAccountAgeField.getSelectionModel().selectedIndexProperty().intValue());
+        client.setWeight(""+myAccountWeightField.getText());
+        client.setHeight(""+myAccountHeightField.getText());
+        client.setBMI(""+myAccountBMIField.getText());
+        client.setBody_fat_rate(""+myAccountFattyField.getText());
+        //update the generic plan
+        myPlan.setText(""+client.getGeneric_plan());
     }
 
     /**
