@@ -35,7 +35,7 @@ public class LoginController {
            window.setScene(afterLoginScene);
            ClientMainSceneController controller = loader.getController();
            afterLoginScene.setUserData(controller);
-           controller.client = (Client)IO.read(new Client(),name);
+           controller.client = (Client)IO.read(new Client(),"11111111111");
            controller.buildScene();
            //controller.id = name;
            //System.out.println(controller.client.getName());
