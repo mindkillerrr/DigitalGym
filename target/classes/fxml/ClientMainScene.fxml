@@ -202,12 +202,12 @@
                         </FlowPane>
                         <FlowPane alignment="TOP_CENTER" hgap="10.0" layoutX="388.0" layoutY="443.0" prefHeight="29.0" prefWidth="313.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#changeEmailButtonCliecked" prefHeight="29.0" prefWidth="156.0" text="Change Email">
+                              <Button mnemonicParsing="false" onAction="#changeEmailButtonCliecked" prefHeight="29.0" prefWidth="310.0" text="Change Phone Number">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" prefHeight="29.0" prefWidth="147.0" text="Change Password">
+                              <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" prefHeight="29.0" prefWidth="310.0" text="Change Password">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -259,12 +259,12 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Off" layoutX="542.0" layoutY="251.0" text="off">
+                        <Label fx:id="Off" layoutX="566.0" layoutY="251.0" text="off">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="discountRatio" layoutX="479.0" layoutY="255.0" prefHeight="24.0" prefWidth="50.0" textAlignment="RIGHT" textFill="#099e01">
+                        <Label fx:id="discountRatio" layoutX="479.0" layoutY="255.0" prefHeight="24.0" prefWidth="77.0" textAlignment="RIGHT" textFill="#099e01">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -285,7 +285,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="premierDiscountPriceLabel" layoutX="599.0" layoutY="260.0" prefHeight="32.0" prefWidth="106.0" textFill="#006b20">
+                        <Label fx:id="premierDiscountPriceLabel" layoutX="596.0" layoutY="263.0" prefHeight="32.0" prefWidth="106.0" textFill="#006b20">
                            <font>
                               <Font size="24.0" />
                            </font>

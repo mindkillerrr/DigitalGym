@@ -1,13 +1,13 @@
 {
-    "course_id":"0C000001",
-    "name":"drink water",
-    "trainer_id":"0T000001",
+    "course_id":"C001",
+    "name":"drink water1",
+    "trainer_id":"22222222222",
     "trainer":"zz",
-    "type":"yoga",
+    "type":"Yoga",
     "state":"active",
-    "info":"This is a live",
+    "info":"This is C001",
     "rank": 0,
-    "price":0.0,
+    "price":10.0,
     "plan":[
         "drink more hot water",
         "drink more hot water",
@@ -51,6 +51,5 @@
         "drink more hot water",
         "drink more hot water",
         "drink more hot water"
-    ],
-    "client_id":"18532164839"    
+    ]
 }
