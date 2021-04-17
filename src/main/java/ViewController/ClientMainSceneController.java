@@ -451,14 +451,4 @@ public class ClientMainSceneController {
         premierOriginalPriceLabel.setText(originPrice+" $ ");
         premierDiscountPriceLabel.setText(discountPrice+" $ ");
     }
-
-
-
-
-
-
-
-
-
-
 }
