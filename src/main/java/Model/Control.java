@@ -205,4 +205,13 @@ public class Control {
         client.prolongPremium(premium_month);
         IO.write(client,client_id);
     }
-}
+
+    public static void register(String Username, String client_id, String password, String sex) throws Exception{
+        Client client = new Client(client_id, password, Username, sex);
+        boolean res = IO.create(client, client_id);
+        int res2 = IO.write(client,client_id);
+        //System.out.println(res);
+        //System.out.println(res2);
+
+    }
+    }

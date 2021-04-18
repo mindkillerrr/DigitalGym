@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ public class LoginController {
 
     public TextField nameTextField;
     public TextField passwordTextField;
+    public Button RegisterButton;
+
 
     public void loginButtionClicked(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
 
@@ -42,6 +45,17 @@ public class LoginController {
            //System.out.println(controller.client.getName());
            window.show();
        }
+
+    }
+
+    public void RegisterButtonClicked(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/RegisterScene.fxml"));
+        Parent afterRegisterParent = loader.load();
+        Scene afterRegisterScene = new Scene(afterRegisterParent);
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(afterRegisterScene);
+        window.show();
 
     }
 }
