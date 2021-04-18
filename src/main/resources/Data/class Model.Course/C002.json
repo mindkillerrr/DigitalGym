@@ -6,7 +6,7 @@
   "type":"Bike",
   "state":"active",
   "info":"This is a C002",
-  "rank": 0,
+  "rank": 1,
   "price":20.0,
   "plan":[
     "drink more hot water",
