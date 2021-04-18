@@ -144,7 +144,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <TextArea layoutX="388.0" layoutY="169.0" prefHeight="257.0" prefWidth="369.0" text="My Plan" />
+                        <TextArea fx:id="myAccountShowPlanTextArea" layoutX="388.0" layoutY="169.0" prefHeight="257.0" prefWidth="369.0" text="My Plan" />
                         <FlowPane alignment="TOP_RIGHT" hgap="30.0" layoutX="16.0" layoutY="169.0" prefHeight="282.0" prefWidth="311.0" vgap="20.0">
                            <children>
                               <Label text="Age">
