@@ -110,6 +110,4 @@ public class IO{
 
     }
 
-    public static void write(Client client) {
-    }
 }

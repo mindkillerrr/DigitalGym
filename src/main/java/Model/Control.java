@@ -168,7 +168,7 @@ public class Control {
     }
 
     /**
-     *
+     * @author PZ
      * @param client client which requesting his courses
      * @return list of client's lives
      */
@@ -181,6 +181,7 @@ public class Control {
 
     /**
      * read client and a course to client's subscription
+     * @author PZ
      * @param client_id
      * @param course_id
      */
@@ -190,6 +191,14 @@ public class Control {
         IO.write(client,client_id);
 
     }
+
+    /**
+     * add live subscription to client
+     * @author PZ
+     * @param client_id
+     * @param live_id
+     * @throws Exception
+     */
     public static void addLiveToClient(String client_id,String live_id) throws Exception {
         Live live = (Live)IO.read(new Live(),live_id);
         live.setClient_id(client_id);
@@ -200,6 +209,14 @@ public class Control {
         IO.write(client,client.getPhone_number());
         IO.write(trainer,trainer.getPhone_number());
     }
+
+    /**
+     * add premium length to client, detail in client.prolongPremium
+     * @author PZ
+     * @param client_id
+     * @param premium_month
+     * @throws IOException
+     */
     public static void addPremiumToClient(String client_id,int premium_month) throws IOException {
         Client client = (Client)IO.read(new Client(),client_id);
         client.prolongPremium(premium_month);
