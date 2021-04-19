@@ -32,6 +32,7 @@ public class ClassSceneController {
     public Label nameLabel;
     public Client client;
     public Course course;
+    public Label courseNameLabel;
 
     public void setCourse(Course course){
         this.course = course;
@@ -64,6 +65,7 @@ public class ClassSceneController {
         }
         accountType.setText((course.getRank()==0)?"Standard":"Premier");
         price.setText(course.getPrice()+"");
+        courseNameLabel.setText(course.getName());
         //accountType
         //accountPrice
 

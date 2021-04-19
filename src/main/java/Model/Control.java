@@ -29,11 +29,30 @@ public class Control {
     /**
      * @author PZ
      * This method used to get all courses from IO
+     * add filter function --PZ 4.19
      * @return list of course
      */
-    public static ArrayList<Course> getAllCourses() throws IOException {
+    public static ArrayList<Course> getAllCourses(String filter,String client_id) throws IOException {
         ArrayList<Course> courses = IO.showAllCourse();
-        return courses;
+        ArrayList<Course> targets = new ArrayList<Course>();
+        Client client = (Client)IO.read(new Client(),client_id);
+        if(filter.equals("All")){
+            for(Course course:courses)//all
+                    targets.add(course);
+        }
+        else if(filter.equals("Discount")){//get discount courses to client
+            for(Course course:courses){//no discount
+                if(course.getRank()<=client.getRank())
+                    targets.add(course);
+            }
+        }
+        else{//filter by type
+            for(Course course:courses){//no discount
+                if(course.getType().equals(filter))
+                    targets.add(course);
+            }
+        }
+        return targets;
     }
     /**
      *
@@ -41,23 +60,53 @@ public class Control {
      * @return list of course
      * @author PZ
      */
-    public static ArrayList<Live> getAllLives() throws IOException {
+    public static ArrayList<Live> getAllLives(String filter,String client_id) throws IOException {
         ArrayList<Live> lives = IO.showAllLive();
-        return lives;
+        ArrayList<Live> targets = new ArrayList<Live>();
+        Client client = (Client)IO.read(new Client(),client_id);
+        if(filter.equals("All")){
+            for(Live live:lives)//all
+                targets.add(live);
+        }
+        else if(filter.equals("Discount")){//get discount courses to client
+            for(Live live:lives){//no discount
+                if(live.getRank()<=client.getRank())
+                    targets.add(live);
+            }
+        }
+        else{//filter by type
+            for(Live live:lives){//no discount
+                if(live.getType().equals(filter))
+                    targets.add(live);
+            }
+        }
+        return targets;
     }
 
     /**
-     *
+     * get client subscription courses
+     * add filter function --PZ
      * @author PZ
      * @param client client which requesting his courses
+     * @param filter indicate filter info
      * @return list of client's courses
      */
-    public static ArrayList<Course> getClientCourses(Client client) throws IOException {
+    public static ArrayList<Course> getClientCourses(Client client, String filter) throws IOException {
         ArrayList <Course> courses = new ArrayList<Course>();
         for(String s:client.getMy_course())
             courses.add((Course)IO.read(new Course(),s));
-        return courses;
-
+        ArrayList<Course> targets = new ArrayList<Course>();
+        if(filter.equals("All")){
+            for(Course course:courses)//all
+                targets.add(course);
+        }
+        else{//filter by type
+            for(Course course:courses){//no discount
+                if(course.getType().equals(filter))
+                    targets.add(course);
+            }
+        }
+        return targets;
     }
 
     /**
@@ -76,6 +125,30 @@ public class Control {
         }
         IO.write(client,client.getPhone_number());
     }
+    /** return live subscription by client
+     * add filter function --PZ
+     * @author PZ
+     * @param client client which requesting his courses
+     * @param filter indicate filter
+     * @return list of client's lives
+     */
+    public ArrayList<Live> getClientLives(Client client, String filter) throws IOException {
+        ArrayList <Live> lives = new ArrayList<Live>();
+        lives.addAll(client.getMy_live());
+        ArrayList<Live> targets = new ArrayList<Live>();
+        if(filter.equals("All")){
+            //all
+            targets.addAll(lives);
+        }
+        else{//filter by type
+            for(Live live:lives){//no discount
+                if(live.getType().equals(filter))
+                    targets.add(live);
+            }
+        }
+        return targets;
+    }
+
 
     /**
      * This method delete live subscription from client side and trainer side
@@ -167,17 +240,6 @@ public class Control {
 
     }
 
-    /**
-     * @author PZ
-     * @param client client which requesting his courses
-     * @return list of client's lives
-     */
-    public ArrayList<Live> getClientLives(Client client) throws IOException {
-        ArrayList <Live> lives = new ArrayList<Live>();
-        for(Live live:client.getMy_live())
-            lives.add(live);
-        return lives;
-    }
 
     /**
      * read client and a course to client's subscription
@@ -245,6 +307,33 @@ public class Control {
         client.cauculateBMIandBody_fat_rate();
         client.generateGeneric_plan();
         IO.write(client,client_id);
+
+    }
+
+    /**
+     * get trainer occupations on a certain date
+     * @param trainer_id
+     * @param date "2021-1-1 0:0:0"
+     * @return an arrayList with 4 entries for 4 time slots in a certain date. set null if trainer is free for one slot
+     */
+    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, LocalDate date){
+        ArrayList<LivePlan> sessions = new ArrayList<LivePlan>();
+
+        return sessions;
+    }
+    /**
+     * @param live a live object contain client_id and trainer_id. used to update personal plan.
+     */
+    public static void updatePeronalLive(Live live){
+
+    }
+
+    /**
+     * used to cancel a live session. remember to cancel both in client and trainer.
+     * @param live which contains client_id and trainer_id.
+     * @param live_index target live session index in ArrayList<Live_Plan>.
+     */
+    public static void cancelPlan(Live live,int live_index){
 
     }
 }
