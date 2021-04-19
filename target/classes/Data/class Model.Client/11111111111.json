@@ -1,13 +1,13 @@
 {
   "rank": 0,
   "premium_end_date": "2020-04-11 08:56:00",
-  "height": 180.0,
-  "weight": 70.0,
-  "BMI": 0.0,
-  "body_fat_rate": 0.0,
+  "height": 160.0,
+  "weight": 50.0,
+  "BMI": 19.53125,
+  "body_fat_rate": 0.16739999999999994,
   "sex": "male",
-  "age": 20,
-  "generic_plan": "drink more hot water",
+  "age": 30,
+  "generic_plan": "You have standard figure, asking trainer for specific plan. ",
   "my_course": [
     "C002"
   ],
