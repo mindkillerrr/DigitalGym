@@ -38,10 +38,8 @@ public class ClientMainSceneController {
     public FlowPane mainPageFlowPane;//this plan hold classes in main page
     public TextArea mainPageNoticeTextArea;//this field provide notice on main page
     public FlowPane myClassFlowPane;//this plan hold classes in my class
-    public TextArea myPlan;//this field is about generic plan in my account
     public TextArea mainPageOverviewText;
     public TextArea myClassOverviewText;
-
     public ChoiceBox mainPageFilterType;
     public Button mainPageSearchButton;
     public RadioButton mainPageClassButton;
@@ -66,9 +64,10 @@ public class ClientMainSceneController {
     public Label premierDiscountPriceLabel;
     public Label premierOriginalPriceLabel;
     public Label myAccountUserNameLabel;
+    public ClientMainSceneController local_controller;
 
     public Model.Client client;
-
+    public TextArea myAccountShowPlanTextArea;
     //public String id; no need --PZ
 
 
@@ -107,16 +106,23 @@ public class ClientMainSceneController {
     }
 
     public void buildScene() throws SAXException, ParserConfigurationException, XPathExpressionException, IOException {
+        local_controller = (ClientMainSceneController)buy.getScene().getUserData();
+        client = (Client)IO.read(client,client.getPhone_number());
+        //System.out.println(client.getRank());
+        //client.getRank();
         myAccountAgeField.setValue(client.getAge());
         myAccountWeightField.setText(""+client.getWeight());
         myAccountHeightField.setText(""+client.getHeight());
         myAccountBMIField.setText(""+client.getBMI());
         myAccountFattyField.setText(""+client.getBody_fat_rate());
-        updateClassesInMainPage();
 
+        updateClassesInMainPage();
         updateClassesInMyClass();
+
         myAccountUserNameLabel.setText(client.getName());
         premiumLabel.setText(client.getRank()==0?"Normal":"Premium");
+        System.out.println(Policy.premium_discount);
+        discountRatio.setText(Policy.premium_discount*100+"%");
     }
 
     public void updateClassesInMainPage() throws IOException, SAXException, ParserConfigurationException {
@@ -133,10 +139,16 @@ public class ClientMainSceneController {
     public void updateClassesInMyClass() throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
         myClassFlowPane.getChildren().clear();
         ArrayList<Button> buttons;
-        if(group2.getSelectedToggle().getUserData().equals("class"))
+        if(group2.getSelectedToggle().getUserData().equals("class")){
+            System.out.println("class");
             buttons = getClassesButtonsForMyClass();
-        else
+        }
+
+        else{
+            System.out.println("live");
             buttons = getLiveButtonsForMyClass();
+        }
+
         for(Button button:buttons)
             myClassFlowPane.getChildren().add(button);
     }
@@ -254,6 +266,7 @@ public class ClientMainSceneController {
     public ArrayList<Button> getClassesButtonsForMyClass() throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         ArrayList<Button> buttons =new ArrayList<Button>();
         Control controller = new Control();
+        client = (Client)IO.read(client,client.getPhone_number());
         ArrayList <Course> classes = Control.getClientCourses(client);
         //System.out.println(classes.size());
         for(Course course :classes){
@@ -289,6 +302,7 @@ public class ClientMainSceneController {
 
             ArrayList<Button> buttons =new ArrayList<Button>();
             Control controller = new Control();
+            client = (Client)IO.read(client,client.getPhone_number());
             ArrayList <Live> lives = controller.getClientLives(client);
             for(Live live : lives){
                 Button button = new Button();
@@ -383,20 +397,7 @@ public class ClientMainSceneController {
         stage.show();
     }
 
-    /**
-     * this method save changes of client's body information's changes, and generate generic plan
-     * @param actionEvent
-     */
-    public void myAccountSaveButtonClicked(ActionEvent actionEvent) {
-        //upload the changed data
-        client.setAge(myAccountAgeField.getSelectionModel().selectedIndexProperty().intValue());
-        client.setWeight(""+myAccountWeightField.getText());
-        client.setHeight(""+myAccountHeightField.getText());
-        client.setBMI(""+myAccountBMIField.getText());
-        client.setBody_fat_rate(""+myAccountFattyField.getText());
-        //update the generic plan
-        myPlan.setText(""+client.getGeneric_plan());
-    }
+
 
     /**
      * this method get what lessons and types user choose, and show them. It's in MainPage.
@@ -415,27 +416,50 @@ public class ClientMainSceneController {
         updateClassesInMyClass();
     }
 
-    public void premierBuyClicked(ActionEvent actionEvent) throws IOException {
-        Integer month = (Integer) (monthChoiceBox.getValue());
-        Control.addPremiumToClient(client.getPhone_number(),month);
+    public void premierBuyClicked(ActionEvent actionEvent) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/Payment.fxml"));
+        Parent PaymentParent = loader.load();
+        Scene PaymentScene = new Scene(PaymentParent);
+        stage.setScene(PaymentScene);
+        Payment controller = loader.getController();
+
+        controller.itemType = "Premium";
+        controller.premium_month = (Integer) (monthChoiceBox.getValue());
+        controller.client = client;
+        controller.buildScene();
+        controller.mainSceneController = local_controller;
+
+        stage.show();
+
+      //  Integer month = (Integer) (monthChoiceBox.getValue());
+        //Control.addPremiumToClient(client.getPhone_number(),month);
+        buildScene();
 
     }
+
+    /**
+     * show price of premium
+     * @throws IOException
+     */
     public void premierMonthSelected() throws IOException {
         Integer month = (Integer) (monthChoiceBox.getValue());
         //System.out.println(month);
-        double originPrice = month * 50;
-        double discountPrice = month * 50 * (1-0.1);
+        double originPrice = month * Policy.premium_price;
+        double discountPrice = month * Policy.premium_price * (1-Policy.premium_discount);
         premierOriginalPriceLabel.setText(originPrice+" $ ");
         premierDiscountPriceLabel.setText(discountPrice+" $ ");
     }
-
-
-
-
-
-
-
-
-
-
+    /**
+     * this method save changes of client's body information's changes, and generate generic plan
+     * @param actionEvent
+     */
+    public void myAccountSaveButtonClicked(ActionEvent actionEvent) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+        Control.updateMyAccountPage(client.getPhone_number(),myAccountAgeField.getValue().toString(),myAccountWeightField.getText(), myAccountHeightField.getText());
+        myAccountBMIField.setText(""+client.getBMI());
+        myAccountFattyField.setText(""+client.getBody_fat_rate());
+        myAccountShowPlanTextArea.setText(client.getGeneric_plan());
+        buildScene();
+    }
 }

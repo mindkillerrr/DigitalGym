@@ -7,8 +7,8 @@ public class Client extends User{
 
     private int rank;//0 for normal, 1 for premium
     private Date premium_end_date;
-    private int height; //in meter
-    private int weight; //in kg
+    private double height;
+    private double weight;
     private double BMI;
     private double body_fat_rate;
     private String sex;//Male,Female
@@ -31,26 +31,50 @@ public class Client extends User{
     public Client() {
 
     }
-
     /**
      * need to be finished by WHY --PZ 4.14 2130
      */
     public void generateGeneric_plan(){
+        if(body_fat_rate<0.1){
+            if(BMI < 18.5) {
+                generic_plan = "Eat more food and do aerobics.";
+            }else if(BMI > 24){
+                generic_plan = "Make sure to have enough protein and calorie, and keep your regular exercise.";
+            }else{
+                generic_plan = "You can eat more protein and try more Anaerobic exercise to make your muscle stronger.";
+            }
 
+        }else if(body_fat_rate>0.35){
+            generic_plan = "Eat less fat and sugar and more vegetable. Try some aerobic in daily life.";
+        }else{
+            generic_plan = "You have standard figure, asking trainer for specific plan. ";
+        }
     }
     /**
-     * BMI is calculated by dividing weight in kilograms by the square of height in meters
+     * need to be finished by WHY --PZ 4.14 2130
      */
     public void cauculateBMIandBody_fat_rate(){
-        BMI = (double) weight/(height * height);
-    }
+        BMI = weight/(height*height*0.0001);
 
+        //Body_fat_rate needs yaoWei(cm)//female - 34.89 male-44.74//infer that yaowei is 64
+
+        body_fat_rate =  (64 * 0.74 - weight * 0.082 - 34.89) / weight;
+    }
     public void prolongPremium(int month){
-        final long MONTH = 3600*1000*24*30;
+        final long MONTH = 3600L *1000*24*30;
         if(!checkPremium()){//expire
-            premium_end_date = new Date((new Date()).getTime()+MONTH*month);
+            System.out.println("not premium"+month);
+
+            premium_end_date = new Date(((new Date()).getTime()+MONTH*month));
+            //premium_end_date = new Date((new Date()).getTime());
+            System.out.println(premium_end_date);
         }
         else premium_end_date = new Date(premium_end_date.getTime()+MONTH*month);
+        updateRank();
+    }
+    public void updateRank(){
+        if(!checkPremium()) rank = 0;
+        else rank=1;
     }
 
     /**
@@ -58,6 +82,8 @@ public class Client extends User{
      * @return TRUE for yes, False for not
      */
     public Boolean checkPremium(){
+        System.out.println(new Date());
+        System.out.println(premium_end_date);
         return (new Date()).compareTo(premium_end_date)!=1;//expire
     }
     /**
@@ -146,19 +172,19 @@ public class Client extends User{
         this.premium_end_date = premium_end_date;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -166,7 +192,7 @@ public class Client extends User{
         return BMI;
     }
 
-    public void setBMI(String BMI) {
+    public void setBMI(double BMI) {
         this.BMI = BMI;
     }
 
@@ -174,7 +200,7 @@ public class Client extends User{
         return body_fat_rate;
     }
 
-    public void setBody_fat_rate(String body_fat_rate) {
+    public void setBody_fat_rate(double body_fat_rate) {
         this.body_fat_rate = body_fat_rate;
     }
 
