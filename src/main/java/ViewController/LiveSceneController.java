@@ -238,4 +238,15 @@ public class LiveSceneController {
         controller.updateClassesInMainPage();
         window.setScene(previousScene);
     }
+
+    public void cancelLiveButtonClicked(ActionEvent actionEvent) throws IOException {
+        int index = tabPane.getSelectionModel().getSelectedIndex();
+        if(index==0) return;//intro, no live
+
+        Control.cancelLiveSession(live.getLive_plan().get(index-1));
+
+        updateTimePicker();
+        live = (Live)IO.read(live,live.getCourse_id());
+        client =(Client)IO.read(client,client.getPhone_number());
+    }
 }

@@ -125,6 +125,47 @@ public class Control {
         }
         IO.write(client,client.getPhone_number());
     }
+
+    /**
+     * delete a live session for both client and trainer
+     * @author PZ
+     * @param live_plan live session object need to be canceled
+     */
+    public static void cancelLiveSession(LivePlan live_plan) throws IOException {
+        if(live_plan.getLive_start_Date()==null) return;
+        Client client = (Client)IO.read(new Client(),live_plan.getClient_id());
+
+        Live live = null;//new Live object after cancellation
+        for(Live l:client.getMy_live()){//find target live
+            if(l.getCourse_id().equals(live_plan.getCourse_id()))
+                live = l;
+        }
+       // IO.printObject(live);
+        Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
+        for(int i=0;i<live.getLive_plan().size();i++){//cancel live session
+            if(live.getLive_plan().get(i).getLive_start_Date()!=null){
+                if(live.getLive_plan().get(i).getLive_start_Date().equals(live_plan.getLive_start_Date())){
+                    live.getLive_plan().get(i).setLive_start_Date(null);
+                    live.getLive_plan().get(i).setLive_url(null);
+                }
+
+            }
+
+        }
+        for(int i=0;i<client.getMy_live().size();i++){//update client
+            if(client.getMy_live().get(i).getCourse_id().equals(live_plan.getCourse_id()))
+                client.getMy_live().set(i,live);
+        }
+        for(int i=0;i<trainer.getMy_live().size();i++){//update trainer
+            if(trainer.getMy_live().get(i).getCourse_id().equals(live_plan.getCourse_id()))
+                trainer.getMy_live().set(i,live);
+        }
+        trainer.getOccupation().remove(live_plan.getLive_start_Date());
+        //write back to DB
+        IO.write(client,client.getPhone_number());
+        IO.write(trainer,trainer.getPhone_number());
+    }
+
     /** return live subscription by client
      * add filter function --PZ
      * @author PZ
@@ -264,6 +305,8 @@ public class Control {
     public static void addLiveToClient(String client_id,String live_id) throws Exception {
         Live live = (Live)IO.read(new Live(),live_id);
         live.setClient_id(client_id);
+        for(LivePlan lp : live.getLive_plan())
+            lp.setClient_id(client_id);
         Client client = (Client)IO.read(new Client(),client_id);
         client.addLive(live);
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());

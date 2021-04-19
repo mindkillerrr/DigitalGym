@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -27,8 +28,6 @@
           </Tab>
         </tabs>
       </TabPane>
-      <DatePicker fx:id="datePicker" layoutX="37.0" layoutY="536.0" onAction="#bookDateChanged" promptText="pick a date for your live session" />
-      <ChoiceBox fx:id="timePicker" layoutX="228.0" layoutY="536.0" prefHeight="23.0" prefWidth="186.0" />
       <Button fx:id="subscribeButton" layoutX="34.0" layoutY="141.0" mnemonicParsing="false" onAction="#subscribeButtonClicked" prefHeight="23.0" prefWidth="163.0" text="Subscribe ">
          <font>
             <Font size="18.0" />
@@ -74,7 +73,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="228.0" layoutY="563.0" mnemonicParsing="false" onAction="#bookbuttonClicked" prefHeight="23.0" prefWidth="186.0" text="Book Live Now" />
       <Label fx:id="priceLabel1" layoutX="183.0" layoutY="53.0" prefHeight="24.0" prefWidth="153.0" text="\$/Subscription">
          <font>
             <Font size="18.0" />
@@ -90,5 +88,13 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <FlowPane layoutX="8.0" layoutY="534.0" prefHeight="52.0" prefWidth="378.0">
+         <children>
+            <DatePicker fx:id="datePicker" onAction="#bookDateChanged" promptText="pick a date for your live session" />
+            <ChoiceBox fx:id="timePicker" prefHeight="23.0" prefWidth="186.0" />
+            <Button mnemonicParsing="false" onAction="#cancelLiveButtonClicked" prefHeight="23.0" prefWidth="186.0" text="Cancel Live Session" />
+            <Button mnemonicParsing="false" onAction="#bookbuttonClicked" prefHeight="23.0" prefWidth="186.0" text="Book Live Now" />
+         </children>
+      </FlowPane>
    </children>
 </AnchorPane>
