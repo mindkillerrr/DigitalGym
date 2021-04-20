@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.LiveSceneForTrainerController">
+   <children>
+      <Button fx:id="CancelLive" layoutX="338.0" layoutY="84.0" mnemonicParsing="false" onAction="#CancelLive" text="Cancel Live">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="Go" layoutX="94.0" layoutY="84.0" mnemonicParsing="false" onAction="#GoLive" text="Go Live">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <TabPane layoutX="3.0" layoutY="189.0" prefHeight="318.0" prefWidth="410.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Intro">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="281.0" prefWidth="348.0">
+                     <children>
+                        <TextArea prefHeight="319.0" prefWidth="337.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <VBox alignment="TOP_CENTER" layoutX="421.0" layoutY="165.0" prefHeight="333.0" prefWidth="404.0">
+         <children>
+            <Label text="Personal Plan">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="PlanWritten" prefHeight="202.0" prefWidth="244.0" />
+         </children>
+      </VBox>
+      <Button layoutX="1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Go Back">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Text layoutX="216.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client:" />
+      <TextArea fx:id="LiveClient" layoutX="312.0" layoutY="31.0" prefHeight="32.0" prefWidth="119.0" />
+   </children>
+</AnchorPane>

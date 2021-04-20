@@ -190,7 +190,7 @@ public class ClientMainSceneController {
         }
     };
 
-    EventHandler<ActionEvent> liveButtonClieked = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> liveButtonClicked = new EventHandler<ActionEvent>() {
         /**
          * this function change to the live page according to the live button clicked.
          * @param actionEvent
@@ -209,10 +209,12 @@ public class ClientMainSceneController {
             }
             Scene classScene = new Scene(classSceneParent);
             Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+
             LiveSceneController controller = loader.getController();
             controller.live = (Live) (((Node)actionEvent.getSource()).getUserData());
             controller.previousScene = ((Node)actionEvent.getSource()).getScene();
             controller.setClient(client);
+
             window.setScene(classScene);
             try {
                 controller.buildScene();//build course scene dynamically according to the course information
@@ -308,7 +310,7 @@ public class ClientMainSceneController {
                 Button button = new Button();
                 button.setPrefSize(160,160);
                 //mainPageFlowPane.getChildren().add(button);
-                button.setOnAction(liveButtonClieked);
+                button.setOnAction(liveButtonClicked);
                 button.addEventHandler(MouseEvent.MOUSE_ENTERED,
                         new EventHandler<MouseEvent>() {
                             @Override
@@ -341,7 +343,7 @@ public class ClientMainSceneController {
             Button button = new Button();
             button.setPrefSize(160,160);
             //mainPageFlowPane.getChildren().add(button);
-            button.setOnAction(liveButtonClieked);
+            button.setOnAction(liveButtonClicked);
             button.addEventHandler(MouseEvent.MOUSE_ENTERED,
                     new EventHandler<MouseEvent>() {
                         @Override

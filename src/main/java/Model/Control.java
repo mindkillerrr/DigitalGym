@@ -230,4 +230,10 @@ public class Control {
         IO.write(client,client_id);
 
     }
+    public ArrayList<Live> getTrainerLives(Trainer trainer) throws IOException {
+        ArrayList <Live> lives = new ArrayList<Live>();
+        for(Live live:trainer.getMy_live())
+            lives.add(live);
+        return lives;
+    }
 }
