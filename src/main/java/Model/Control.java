@@ -117,6 +117,7 @@ public class Control {
      */
     public static void deleteClientCourse(String phone_number, String course_id) throws IOException {
         Client client = (Client)IO.read(new Client(),phone_number);
+
         for(int i=0;i<client.getMy_course().size();i++){
             if(client.getMy_course().get(i).equals(course_id)){//find
                 System.out.println("target course found, deleting.");

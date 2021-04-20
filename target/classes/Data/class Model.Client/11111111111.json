@@ -8,56 +8,10 @@
   "sex": "male",
   "age": 20,
   "generic_plan": "You can eat more protein and try more Anaerobic exercise to make your muscle stronger.",
-  "my_course": [],
-  "my_live": [
-    {
-      "live_plan": [
-        {
-          "live_url": null,
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111"
-        },
-        {
-          "live_url": "url_for_day2_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111"
-        },
-        {
-          "live_url": "url_for_day3_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111"
-        },
-        {
-          "live_url": "url_for_day4_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111"
-        }
-      ],
-      "client_id": "11111111111",
-      "course_id": "L001",
-      "name": "Yoga Live Course",
-      "trainer_id": "22222222222",
-      "trainer": "Master Zhang",
-      "type": "Yoga",
-      "info": "info of L001",
-      "plan": [
-        "Day1 Plan: Basic workout. \n Some plan info...",
-        "Day2 Plan: Basic workout. \n Some plan info...",
-        "Day3 Plan: Basic workout. \n Some plan info...",
-        "Day4 Plan: Basic workout. \n Some plan info..."
-      ],
-      "rank": 0,
-      "price": 50.0
-    }
+  "my_course": [
+    "C001"
   ],
+  "my_live": [],
   "phone_number": "11111111111",
   "password": "11111111111",
   "name": "user One",
