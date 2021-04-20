@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class LivePlan {
 
@@ -10,6 +11,7 @@ public class LivePlan {
     private String personal_plan;
     private String course_id;
     private String client_id;
+    private Boolean finish;//false before live , true after live.
 
     public LivePlan(String client_id) {
         setLive_url("initial url");
@@ -60,5 +62,26 @@ public class LivePlan {
 
     public void setClient_id(String client_id) {
         this.client_id = client_id;
+    }
+
+    public Boolean getFinish() {
+        return finish;
+    }
+
+    public void setFinish(Boolean finish) {
+        this.finish = finish;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LivePlan livePlan = (LivePlan) o;
+        return Objects.equals(getLive_url(), livePlan.getLive_url()) && Objects.equals(getLive_start_Date(), livePlan.getLive_start_Date()) && Objects.equals(getPersonal_plan(), livePlan.getPersonal_plan()) && Objects.equals(getCourse_id(), livePlan.getCourse_id()) && Objects.equals(getClient_id(), livePlan.getClient_id()) && Objects.equals(getFinish(), livePlan.getFinish());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLive_url(), getLive_start_Date(), getPersonal_plan(), getCourse_id(), getClient_id(), getFinish());
     }
 }

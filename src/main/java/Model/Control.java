@@ -167,6 +167,16 @@ public class Control {
         IO.write(trainer,trainer.getPhone_number());
     }
 
+    public static void finishLiveSession(LivePlan live_plan) throws IOException {
+        Live live = (Live)IO.read(new Live(),live_plan.getCourse_id());
+        Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
+        Client client = (Client)IO.read(new Client(),live_plan.getClient_id());
+        client.finishLiveSession(live_plan);
+        trainer.finishLiveSession(live_plan);
+        IO.write(client,client.getPhone_number());
+        IO.write(trainer,trainer.getPhone_number());
+    }
+
     /** return live subscription by client
      * add filter function --PZ
      * @author PZ
@@ -261,17 +271,24 @@ public class Control {
                 index2 = i;
         }
 
+        if(client.getMy_live().get(index1).getLive_plan().get(session-1).getFinish()){//live session has been booked and already finished
+            throw new Exception("live session has been finished, cannot book again");
+        }
+
+
         Calendar calendar = null;//set live time slot
         if(timeSlot.equals("8:00 ~ 10:00"))
-            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),8,0);
+            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue()-1,date.getDayOfMonth(),8,0);
         else if(timeSlot.equals("10:00 ~ 12:00"))
-            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),10,0);
+            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue()-1,date.getDayOfMonth(),10,0);
         else if(timeSlot.equals("13:00 ~ 15:00"))
-            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),13,0);
+            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue()-1,date.getDayOfMonth(),13,0);
         else if(timeSlot.equals("15:00 ~ 17:00"))
-            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),15,0);
+            calendar = new GregorianCalendar(date.getYear(),date.getMonthValue()-1,date.getDayOfMonth(),15,0);
         Date bookDate = calendar.getTime();
-
+        Date oldDate = live.getLive_plan().get(session-1).getLive_start_Date();
+        if(oldDate!=null)//dateChanged
+            trainer.getOccupation().remove(oldDate);
         live.getLive_plan().get(session-1).setLive_start_Date(bookDate);//update live info into client and trainer
         live.getLive_plan().get(session-1).setLive_url("ZoomLiveSession/Client:"+live.getClient_id()+"/Trainer: "+live.getTrainer_id()+"/time: "+bookDate);
         trainer.getOccupation().add(bookDate);
