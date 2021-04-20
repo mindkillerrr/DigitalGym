@@ -35,17 +35,14 @@
                               <TextArea fx:id="mainPageNoticeTextArea" prefHeight="109.0" prefWidth="275.0" />
                            </content>
                         </ScrollPane>
-                        <VBox alignment="TOP_CENTER" layoutX="488.0" layoutY="142.0" prefHeight="304.0" prefWidth="238.0">
+                        <VBox alignment="TOP_CENTER" layoutX="488.0" layoutY="142.0" prefHeight="304.0" prefWidth="282.0">
                            <children>
                               <Label prefHeight="19.0" prefWidth="245.0" text="              Overview">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="mainPageOverviewText" editable="false" prefHeight="332.0" prefWidth="238.0">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font></TextArea>
+                              <TextArea fx:id="mainPageOverviewText" editable="false" prefHeight="280.0" prefWidth="280.0" />
                            </children>
                         </VBox>
                         <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="134.0" prefWidth="450.0">
@@ -83,14 +80,14 @@
                               <FlowPane fx:id="myClassFlowPane" alignment="TOP_CENTER" hgap="20.0" prefHeight="266.0" prefWidth="448.0" vgap="20.0" />
                            </content>
                         </ScrollPane>
-                        <VBox alignment="TOP_CENTER" layoutX="486.0" layoutY="140.0" prefHeight="304.0" prefWidth="238.0">
+                        <VBox alignment="TOP_CENTER" layoutX="486.0" layoutY="140.0" prefHeight="304.0" prefWidth="289.0">
                            <children>
                               <Label prefHeight="19.0" prefWidth="245.0" text="              Overview">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="myClassOverviewText" prefHeight="332.0" prefWidth="238.0" />
+                              <TextArea fx:id="myClassOverviewText" prefHeight="280.0" prefWidth="256.0" />
                            </children>
                         </VBox>
                         <AnchorPane layoutX="14.0" layoutY="11.0" prefHeight="149.0" prefWidth="468.0">
