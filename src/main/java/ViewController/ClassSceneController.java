@@ -89,13 +89,13 @@ public class ClassSceneController {
         Parent WatchVideoParent = loader.load();
         Scene WatchVideoScene = new Scene(WatchVideoParent);
         stage.setScene(WatchVideoScene);
-        WatchVideo controller = loader.getController();
-        controller.dayLabel.setText("Day: "+index);
-        controller.url = course.getVideo_path().get(index-1);
+        //WatchVideo controller = loader.getController();
+        //controller.dayLabel.setText("Day: "+index);
+        //controller.url = course.getVideo_path().get(index-1);
         //controller.urlLabel.setText(controller.url);
-        controller.courseNameLabel.setText(course.getName());
+        //controller.courseNameLabel.setText(course.getName());
         stage.show();
-        controller.playVedio();
+       // controller.playVedio();
     }
 
     public void subscribeButtionClicked(ActionEvent actionEvent) throws Exception {

@@ -9,7 +9,46 @@
 
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.TrainerMainSceneController">
-   <children>
+    <children>
+        <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Main">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Button fx:id="TrainerMainAddClassButton" layoutX="56.0" layoutY="44.0" mnemonicParsing="false" onAction="#TrainerMainAddClassButtonClicked" prefHeight="244.0" prefWidth="213.0" text="Add a class">
+                                    <font>
+                                        <Font size="27.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="TrainerMainAddLiveButton" layoutX="326.0" layoutY="44.0" mnemonicParsing="false" onAction="#TrainerMainAddLiveButtonClicked" prefHeight="244.0" prefWidth="213.0" text="Add a live">
+                                    <font>
+                                        <Font size="27.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="My Class">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="My Live">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="My Account">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+    <children>
       <TabPane layoutX="14.0" layoutY="14.0" prefHeight="562.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Main Page">

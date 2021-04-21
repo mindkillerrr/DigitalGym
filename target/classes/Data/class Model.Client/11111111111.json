@@ -8,9 +8,7 @@
   "sex": "male",
   "age": 20,
   "generic_plan": "You can eat more protein and try more Anaerobic exercise to make your muscle stronger.",
-  "my_course": [
-    "C001"
-  ],
+  "my_course": [],
   "my_live": [],
   "phone_number": "11111111111",
   "password": "11111111111",
