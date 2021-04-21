@@ -15,8 +15,7 @@ public class LivePlan {
         setLive_url("initial url");
         setLive_start_Date(null);
         setPersonal_plan("initial text");
-
-
+        this.client_id = client_id;
     }
     public String toString(){
         return "use IO.printObject instead.";

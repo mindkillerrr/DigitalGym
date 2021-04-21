@@ -3,9 +3,9 @@ package Model;
 import java.util.*;
 
 public class Trainer extends User{
-    HashSet <Date> occupation;
-    ArrayList <String> my_course;
-    ArrayList <Live> my_live;
+    private HashSet <Date> occupation;
+    private ArrayList <String> my_course;
+    private ArrayList <Live> my_live;
 
     public Trainer(String phone_number, String password, String name) {
         super(phone_number, password, name);

@@ -288,7 +288,7 @@ public class Control {
     public static void register(String Username, String client_id, String password, String sex) throws Exception{
         Client client = new Client(client_id, password, Username, sex);
         boolean res = IO.create(client, client_id);
-        int res2 = IO.write(client,client_id);
+        boolean res2 = IO.write(client,client_id);
         //System.out.println(res);
         //System.out.println(res2);
 
@@ -335,5 +335,74 @@ public class Control {
      */
     public static void cancelPlan(Live live,int live_index){
 
+    }
+
+    /**
+     * @author zz
+     * @param user
+     * @return boolean whether write file
+     */
+    public static boolean deleteClient(Client user)
+    {
+        user.setState("Inactive");
+        return IO.write(user,user.getPhone_number());
+    }
+
+    /**
+     * @author zz
+     * @param c client
+     * @param t train
+     * @param l new live contains new personal plan
+     * @param day the date of the new personal plan
+     * @return boolean && boolean
+     */
+    public  static boolean publishPlan(Client c, Trainer t, Live l, int day)
+    {
+        for( Live i : c.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
+    }
+    public static boolean changeLiveInfo(Trainer t, Live l) throws IOException {
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                Client c = (Client) IO.read(new Client(),i.getClient_id());
+                for( Live j : c.getMy_live())
+                {
+                    if(j.getCourse_id().equals(l.getCourse_id()))
+                    {
+                        j=l;
+                        j.setClient_id(c.getPhone_number());
+                    }
+                }
+                IO.write(c,c.getPhone_number());
+            }
+        }
+        return true;
+    }
+    public static boolean cancelLive(Trainer t, Live live, int day) throws IOException {
+        Client c = (Client) IO.read(new Client(),live.getClient_id());
+        for(Live l : c.getMy_live())
+        {
+            if(l.getCourse_id().equals(live.getCourse_id()))
+            {
+                l.getALivePlan(day).setLive_start_Date(null);
+                return true;
+            }
+        }
+        return false;
     }
 }
