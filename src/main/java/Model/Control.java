@@ -301,6 +301,63 @@ public class Control {
 
 
     /**
+     * @Author JoyceJ
+     * @Description //check what character the user is
+     * @Date 10:38 2021-04-20
+     * @Param [phoneNumber, password]
+     * @return java.lang.String
+     **/
+    public static String checkLoginInfo(String phoneNumber, String password) throws IOException {
+        try{
+            //System.out.println("test");
+            Client client = (Client)IO.read(new Client(),phoneNumber);
+            if(client!=null) {
+
+                if(client.password.equals(password))    return "Client";
+                else    return "fail";
+            }
+
+            /*
+            Manager manager = (Manager) IO.read(new Manager(), phoneNumber);
+            System.out.println(manager);
+            if(manager!=null){
+                if(manager.password.equals(password))   return "Manager";
+                else    return "PasswdFail";
+            }else{
+                System.out.println("manager null");
+            }
+
+             */
+        }catch (IOException e) {
+            try{
+                Trainer trainer = (Trainer) IO.read(new Trainer(), phoneNumber);
+                if(trainer!=null){
+                    if(trainer.password.equals(password))   return "Trainer";
+                    else    return "PasswdFail";
+                }
+
+            }catch (IOException o){
+                return "fail";
+            }
+
+        }
+        return "fail";
+
+    }
+
+    /**
+     *
+     * @param client client which requesting his courses
+     * @return list of client's lives
+     */
+    public ArrayList<Live> getClientLives(Client client) throws IOException {
+        ArrayList <Live> lives = new ArrayList<Live>();
+        for(Live live:client.getMy_live())
+            lives.add(live);
+        return lives;
+    }
+
+    /**
      * read client and a course to client's subscription
      * @author PZ
      * @param client_id
@@ -349,9 +406,22 @@ public class Control {
     public static void register(String Username, String client_id, String password, String sex) throws Exception{
         Client client = new Client(client_id, password, Username, sex);
         boolean res = IO.create(client, client_id);
-        int res2 = IO.write(client,client_id);
-        //System.out.println(res);
-        //System.out.println(res2);
+        boolean res2 = IO.write(client,client_id);
+
+    }
+
+    /**
+     * @Author JoyceJ & yy
+     * @Description Used in forgetPasswordScene and the changePasswordScene in client's main scene
+     * @Date 10:25 2021-04-21
+     * @Param [client_id, newPassword]
+     * @return void
+     **/
+    public static void changePassword(String client_id, String newPassword) throws IOException {
+
+        Client client = (Client)IO.read(new Client(),client_id);
+        client.setPassword(newPassword);
+        IO.write(client,client_id);
 
     }
     public static void updateMyAccountPage(String client_id, String clientAge, String clientWeight, String clientHeight) throws IOException {
@@ -397,4 +467,19 @@ public class Control {
     public static void cancelPlan(Live live,int live_index){
 
     }
+
+    /**
+     *
+     * @param client_id who wants to change his password
+     * @param newPhoneNumber is the new phone number which replaces original phone number
+     */
+    public static void changePhoneNumber(String client_id, String newPhoneNumber) throws Exception {
+        Client client = (Client) IO.read(new Client(), client_id);
+        //String oldNumber = client.getPhone_number();
+        client.setPhone_number(newPhoneNumber);
+        IO.write(client, client_id);
+        //changeFileName(new Client(), oldNumber, newPhoneNumber);
+    }
+
 }
+

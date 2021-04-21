@@ -1,65 +1,13 @@
 {
-  "occupation": [
-    "2021-04-21 08:00:00"
-  ],
-  "my_course": [
-    "C001"
-  ],
-  "my_live": [
-    {
-      "live_plan": [
-        {
-          "live_url": "ZoomLiveSession/Client:11111111111/Trainer: 22222222222/time: Wed Apr 21 08:00:00 CST 2021",
-          "live_start_Date": "2021-04-21 08:00:00",
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111",
-          "finish": true
-        },
-        {
-          "live_url": "url_for_day2_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111",
-          "finish": false
-        },
-        {
-          "live_url": "url_for_day3_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111",
-          "finish": false
-        },
-        {
-          "live_url": "url_for_day4_live",
-          "live_start_Date": null,
-          "personal_plan": "not modified by trainer",
-          "course_id": "L001",
-          "client_id": "11111111111",
-          "finish": false
-        }
-      ],
-      "client_id": "11111111111",
-      "course_id": "L001",
-      "name": "Yoga Live Course",
-      "trainer_id": "22222222222",
-      "trainer": "Master Zhang",
-      "type": "Yoga",
-      "info": "info of L001",
-      "plan": [
-        "Day1 Plan: Basic workout. \n Some plan info...",
-        "Day2 Plan: Basic workout. \n Some plan info...",
-        "Day3 Plan: Basic workout. \n Some plan info...",
-        "Day4 Plan: Basic workout. \n Some plan info..."
-      ],
-      "rank": 0,
-      "price": 50.0
-    }
-  ],
-  "phone_number": "22222222222",
-  "password": "22222222222",
-  "name": "Master Zhang",
-  "state": "active"
+    "phone_number":"22222222222",
+    "password":"22222222222",
+    "name":"Master Zhang",
+    "state":"active",
+    "occupation":[],
+    "my_course":[
+        "C001"
+    ],
+    "my_live":[
+
+    ]
 }

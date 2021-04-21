@@ -87,7 +87,7 @@ public class IO{
     }
 
 
-    public static int  write(Object o, String primary_key)
+    public static boolean  write(Object o, String primary_key)
     {
         try{
             Gson gson;
@@ -102,12 +102,14 @@ public class IO{
         }catch (Exception e)
         {
             e.printStackTrace();
-            return 0;
+            return false;
         }
-        return 1;
+        return true;
     }
     static {
 
     }
 
+    public static void write(Client client) {
+    }
 }

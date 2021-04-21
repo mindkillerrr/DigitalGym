@@ -33,7 +33,7 @@ public class RegisterScene {
         }
         else{
 
-            Control.register(UsernameTextField.getText(),PhoneNumberTextField.getText(),PasswordTextField.getText(),SexTextField.getText());
+            Model.Control.register(UsernameTextField.getText(),PhoneNumberTextField.getText(),PasswordTextField.getText(),SexTextField.getText());
 
             //jump back to login
             FXMLLoader loader = new FXMLLoader();
@@ -45,6 +45,17 @@ public class RegisterScene {
             window.show();
 
         }
+
+    }
+
+    public void gobackButtonClicked(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/LoginScene.fxml"));
+        Parent gobackParent = loader.load();
+        Scene gobackScene = new Scene(gobackParent);
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(gobackScene);
+        window.show();
 
     }
 }

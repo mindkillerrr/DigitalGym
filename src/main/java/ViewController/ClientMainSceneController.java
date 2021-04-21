@@ -369,7 +369,7 @@ public class ClientMainSceneController {
         mainPageNoticeTextArea.setText(s);
     }
 
-    public void changeEmailButtonCliecked(ActionEvent actionEvent) throws IOException {
+    public void changeEmailButtonClicked(ActionEvent actionEvent) throws IOException {
         Stage stage = new Stage();
 
 
