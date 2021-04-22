@@ -53,21 +53,23 @@ public class TrainerMainSceneController {
         Parent addClassParent = loader.load();
         Scene addClassScene = new Scene(addClassParent);
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        AddClass controller = loader.getController();
+        controller.previousScene = ((Node)actionEvent.getSource()).getScene();
         window.setScene(addClassScene);
         window.show();
     }
 
     public void TrainerMainAddLiveButtonClicked(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/AddLive.fxml"));
         Parent addLiveParent = loader.load();
         Scene addLiveScene = new Scene(addLiveParent);
-
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         AddLive controller = loader.getController();
-        controller.setTrainer(trainer);
-        stage.setScene(addLiveScene);
-        stage.show();
+        controller.previousScene = ((Node)actionEvent.getSource()).getScene();
+        window.setScene(addLiveScene);
+        window.show();
+
 //
 
 
@@ -150,13 +152,31 @@ public class TrainerMainSceneController {
     public void MyClassDeleteClicked(ActionEvent actionEvent) {
     }
 
-    public void MyClassChangeClicked(ActionEvent actionEvent) {
+    public void MyClassChangeClicked(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/AddLive.fxml"));
+        Parent addLiveParent = loader.load();
+        Scene addLiveScene = new Scene(addLiveParent);
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        AddLive controller = loader.getController();
+        controller.previousScene = ((Node)actionEvent.getSource()).getScene();
+        window.setScene(addLiveScene);
+        window.show();
     }
 
-    public void MyAccountChangePasswordClicked(ActionEvent actionEvent) {
+    public void MyAccountChangePasswordClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/ChangePassword.fxml"));
+        Parent changePassWordParent = loader.load();
+        Scene changePassWordScene = new Scene(changePassWordParent);
+
+        stage.setScene(changePassWordScene);
+
+        stage.show();
     }
 
-    public void MyAccountChangeEmailClicked(ActionEvent actionEvent) {
-    }
 }
 

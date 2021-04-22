@@ -98,24 +98,24 @@ public class AddLive {
 
             Tab tab = new Tab("Day" + i++);
             AnchorPane pane = new AnchorPane();
-            pane.setPrefWidth(456);
-            pane.setPrefHeight(247);
+            pane.setPrefWidth(415);
+            pane.setPrefHeight(328);
             TextField tf = new TextField();
-            tf.setPrefHeight(247);
-            tf.setPrefWidth(324);
+            tf.setPrefHeight(324);
+            tf.setPrefWidth(304);
             plan.add(tf);
             TextField url = new TextField();
-            url.setPrefHeight(209);
-            url.setPrefWidth(122);
+            url.setPrefHeight(267);
+            url.setPrefWidth(272);
             Label lb = new Label();
             lb.setText("Video URL:");
             pane.getChildren().add(tf);
             pane.getChildren().add(url);
             pane.getChildren().add(lb);
-            AnchorPane.setTopAnchor(url, 36.0);
-            AnchorPane.setLeftAnchor(url, 330.0);
-            AnchorPane.setTopAnchor(lb, 14.0);
-            AnchorPane.setLeftAnchor(lb, 351.0);
+            AnchorPane.setTopAnchor(url, 52.0);
+            AnchorPane.setLeftAnchor(url, 344.0);
+            AnchorPane.setTopAnchor(lb, 7.0);
+            AnchorPane.setLeftAnchor(lb, 365.0);
             tab.setContent(pane);//Node
             tabPane.getTabs().add(tab);
         }
