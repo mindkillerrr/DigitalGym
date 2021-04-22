@@ -4,6 +4,7 @@ package ViewController;
 import Model.Client;
 
 import Model.Control;
+import Model.IO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,25 +30,26 @@ public class ChangeEmailScene {
     public Label errorLabel;
     public Client client;
     public String id;
-    public String client_id;
     public TextField newPhoneNumber;
+    public ClientMainSceneController mainSceneController;
 
     /**
      * This function is called OkButtonclicked, it is clicked once user want to change their e-mail.After being clicked,the new e-mail will replace original data and jump to the success interface.
      * @param actionEvent
      */
     public void OkButtonclicked(ActionEvent actionEvent) throws Exception, ParserConfigurationException, SAXException, XPathExpressionException {
-
-        if(newPhoneNumber.getText().length()!=11||newPhoneNumber.getText().charAt(0)!='1'||!checkPhoneNumber()){
+        errorLabel.setText("");
+        if(!Control.checkPhoneNumberFormat(newPhoneNumber.getText())){
             errorLabel.setText("Invalid phone number!");
             return ;
         }
-        if(!checkVarificationCode()){
-            errorLabel.setText("Verification code is wrong!");
-            return ;
-        }
+
+       //
         //System.out.println(client_id);
-        Control.changePhoneNumber(client_id,newPhoneNumber.getText());
+        Control.changePhoneNumber(client.getPhone_number(),newPhoneNumber.getText());
+
+        mainSceneController.client = (Client) IO.read(new Client(),newPhoneNumber.getText());//refresh main scene
+        mainSceneController.buildScene();
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/SuccessScene.fxml"));
@@ -59,22 +61,7 @@ public class ChangeEmailScene {
         window.show();
     }
 
-    private boolean checkPhoneNumber() {
-        int count=0;
-        for(int i=0;i<11;i++) {
-            if (newPhoneNumber.getText().charAt(i)<'1'||newPhoneNumber.getText().charAt(i)>'9'){
-                count++;
-            }
-        }
-        if(count==0)    return true;
-        else return false;
-    }
 
-    private boolean checkVarificationCode() {
-        //Suppose the verification code is 1234
-        if(varify.getText().equals("1234")) return true;
-        else return false;
-    }
 
     /**
      * this function is called sendVarifyClicked, once user click it,user will receive a code to varify.

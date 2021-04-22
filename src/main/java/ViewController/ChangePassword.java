@@ -1,6 +1,6 @@
 package ViewController;
 
-import Model.Control;
+import Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,19 +25,27 @@ public class ChangePassword {
     public TextField verifyCodepoint;
     public TextField againInput;
     public TextField newPasswordinput;
-    public String client_id;
-    public Label errorLabel;
+    public Label errorLabelForTwiceInput;
+    public Label errorLabelForPasswordFormat;
+
+    public Client client;
 
 
     public void buttonClick(ActionEvent actionEvent) throws Exception {
         //It needs to be improved to determine D
+        errorLabelForPasswordFormat.setText("");
+        errorLabelForTwiceInput.setText("");
 
-        if(!checkSamePassword()){
-            errorLabel.setText("Invalid Input!Please input again.");
+        if(!Control.checkPasswordFormat(newPasswordinput.getText()))
+            errorLabelForPasswordFormat.setText("Invalid input!Please input again.");
+        if(!newPasswordinput.getText().equals(againInput.getText()))
+            errorLabelForTwiceInput.setText("Different input from first time.");
+
+        if(!errorLabelForPasswordFormat.getText().equals("")||!errorLabelForTwiceInput.getText().equals(""))
             return ;
-        }
 
-        Control.changePassword(emailInput.getText(),newPasswordinput.getText());
+        Control.changePassword(client.getPhone_number(),newPasswordinput.getText());
+
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/SuccessScene.fxml"));
@@ -47,10 +55,7 @@ public class ChangePassword {
         window.setScene(afterChangeEmailScene);
         window.show();
     }
-    public Boolean checkSamePassword(){
-        if(againInput.getText().equals(newPasswordinput.getText())) return true;
-        else return false;
-    }
+
 }
 /**
  *

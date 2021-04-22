@@ -40,7 +40,7 @@ public class IO{
         catch (Exception e)
         {
             e.printStackTrace();
-
+            return  null;
         }
         return o;
     }
@@ -109,7 +109,13 @@ public class IO{
     static {
 
     }
+    public static boolean changeFileName(Object o, String old_key, String new_key)
+    {
 
-    public static void write(Client client) {
+        File file1 = new File("target\\classes\\Data\\"+o.getClass()+"\\"+old_key+".json");
+        File file2 = new File("target\\classes\\Data\\"+o.getClass()+"\\"+new_key+".json");
+        return file1.renameTo(file2);
     }
+
+
 }

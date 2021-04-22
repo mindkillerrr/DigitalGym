@@ -25,6 +25,10 @@ public class Client extends User{
         my_course = new ArrayList<String>();
         my_live = new ArrayList<Live>();
         setGeneric_plan("initial text");
+        setHeight(160.0);
+        setWeight(50.0);
+        setBMI(0.0);
+        setBody_fat_rate(0.0);
 
     }
 

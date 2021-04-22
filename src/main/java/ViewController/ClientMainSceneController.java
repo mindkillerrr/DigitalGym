@@ -369,7 +369,7 @@ public class ClientMainSceneController {
         mainPageNoticeTextArea.setText(s);
     }
 
-    public void changeEmailButtonClicked(ActionEvent actionEvent) throws IOException {
+    public void changeEmailButtonClicked(ActionEvent actionEvent) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         Stage stage = new Stage();
 
 
@@ -381,8 +381,10 @@ public class ClientMainSceneController {
         stage.setScene(changeEmailScene);
         ChangeEmailScene controller = loader.getController();
         controller.client = client;
-
+        controller.mainSceneController = (ClientMainSceneController)(((Node)actionEvent.getSource()).getScene()).getUserData();
         stage.show();
+
+
     }
 
     public void changePasswordButtonClicked(ActionEvent actionEvent) throws IOException {
@@ -393,7 +395,8 @@ public class ClientMainSceneController {
         loader.setLocation(getClass().getResource("/fxml/ChangePassword.fxml"));
         Parent changePassWordParent = loader.load();
         Scene changePassWordScene = new Scene(changePassWordParent);
-
+        ChangePassword controller = loader.getController();
+        controller.client = this.client;
         stage.setScene(changePassWordScene);
 
         stage.show();

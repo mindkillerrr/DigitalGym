@@ -333,7 +333,7 @@ public class Control {
                 Trainer trainer = (Trainer) IO.read(new Trainer(), phoneNumber);
                 if(trainer!=null){
                     if(trainer.password.equals(password))   return "Trainer";
-                    else    return "PasswdFail";
+                    else    return "fail";
                 }
 
             }catch (IOException o){
@@ -469,17 +469,63 @@ public class Control {
     }
 
     /**
-     *
+     * used when pk of client changed
      * @param client_id who wants to change his password
      * @param newPhoneNumber is the new phone number which replaces original phone number
      */
     public static void changePhoneNumber(String client_id, String newPhoneNumber) throws Exception {
         Client client = (Client) IO.read(new Client(), client_id);
-        //String oldNumber = client.getPhone_number();
+        String oldNumber = client.getPhone_number();
         client.setPhone_number(newPhoneNumber);
         IO.write(client, client_id);
-        //changeFileName(new Client(), oldNumber, newPhoneNumber);
+        IO.changeFileName(client,oldNumber,client.getPhone_number());
+    }
+    /**
+     * @author zz
+     * @param c client
+     * @param t train
+     * @param l new live contains new personal plan
+     * @param day the date of the new personal plan
+     * @return boolean && boolean
+     */
+    public  static boolean publishPlan(Client c, Trainer t, Live l, int day)
+    {
+        for( Live i : c.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
     }
 
+    /**
+     * called to check phoneNumber format
+     * need more function later --PZ 4.22
+     * @param phoneNumber input for check
+     * @return true if valid, otherwise false
+     */
+    public static Boolean checkPhoneNumberFormat(String phoneNumber){
+
+        if(phoneNumber.length()!=11) return false;
+        return true;
+    }
+    /**
+     * called to check password format
+     * need more function later --PZ 4.22
+     * @param password input for check
+     * @return true if valid, otherwise false
+     */
+    public static Boolean checkPasswordFormat(String password){
+        return true;
+    }
 }
 
