@@ -32,14 +32,14 @@ public class LoginController {
        if(true){
 
            FXMLLoader loader = new FXMLLoader();
-           loader.setLocation(getClass().getResource("/fxml/ClientMainScene.fxml"));
+           loader.setLocation(getClass().getResource("/fxml/TrainerMainScene.fxml"));
            Parent afterLoginParent = loader.load();
            Scene afterLoginScene = new Scene(afterLoginParent);
            Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
            window.setScene(afterLoginScene);
-           ClientMainSceneController controller = loader.getController();
+           TrainerMainSceneController controller = loader.getController();
            afterLoginScene.setUserData(controller);
-           controller.client = (Client)IO.read(new Client(),"11111111111");
+           controller.trainer = (Trainer) IO.read(new Trainer(),"22222222222");
            controller.buildScene();
          //  controller.id = name;
            //System.out.println(controller.client.getName());
