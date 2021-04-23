@@ -316,48 +316,43 @@ public class Control {
      * @param date "2021-1-1 0:0:0"
      * @return an arrayList with 4 entries for 4 time slots in a certain date. set null if trainer is free for one slot
      */
-    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, LocalDate date){
+    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, Date date, int day) throws IOException {
         ArrayList<LivePlan> sessions = new ArrayList<LivePlan>();
+        Trainer t = (Trainer) IO.read(new Trainer(),trainer_id);
+        ArrayList<Live> lives= t.getMy_live();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        for(int i=1;i<=4;i++)
+        {
+            calendar.add(Calendar.HOUR_OF_DAY,2);
+            Date newdate = calendar.getTime();
+            int flag=0;
+            for(Live l :lives)
+            {
+                LivePlan livePlan = l.getALivePlan(day);
+                if(livePlan.getLive_start_Date().equals(newdate))
+                {
+                    flag=1;
+                    sessions.add(livePlan);
+                    break;
+                }
+            }
+            if(flag==0)
+            {
+                LivePlan nullPlan = new LivePlan();
+                nullPlan.setTrainer_id(trainer_id);
+                sessions.add(nullPlan);
+            }
+        }
 
         return sessions;
     }
     /**
-     * @param live a live object contain client_id and trainer_id. used to update personal plan.
+     * @param l a live object contain client_id and trainer_id. used to update personal plan.
      */
-    public static void updatePeronalLive(Live live){
-
-    }
-
-    /**
-     * used to cancel a live session. remember to cancel both in client and trainer.
-     * @param live which contains client_id and trainer_id.
-     * @param live_index target live session index in ArrayList<Live_Plan>.
-     */
-    public static void cancelPlan(Live live,int live_index){
-
-    }
-
-    /**
-     * @author zz
-     * @param user
-     * @return boolean whether write file
-     */
-    public static boolean deleteClient(Client user)
-    {
-        user.setState("Inactive");
-        return IO.write(user,user.getPhone_number());
-    }
-
-    /**
-     * @author zz
-     * @param c client
-     * @param t train
-     * @param l new live contains new personal plan
-     * @param day the date of the new personal plan
-     * @return boolean && boolean
-     */
-    public  static boolean publishPlan(Client c, Trainer t, Live l, int day)
-    {
+    public static boolean updatePeronalLive(Live l, int day) throws IOException {
+        Client c = (Client) IO.read(new Client(), l.getClient_id());
+        Trainer t = (Trainer) IO.read(new Trainer(), l.getTrainer_id());
         for( Live i : c.getMy_live())
         {
             if(i.getCourse_id().equals(l.getCourse_id()))
@@ -374,6 +369,36 @@ public class Control {
         }
         return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
     }
+
+    /**
+     * used to cancel a live session. remember to cancel both in client and trainer.
+     * @param live which contains client_id and trainer_id.
+     * @param day target live session index in ArrayList<Live_Plan>.
+     */
+    public static boolean cancelPlan(Live live,int day) throws IOException {
+        Client c = (Client) IO.read(new Client(),live.getClient_id());
+        for(Live l : c.getMy_live())
+        {
+            if(l.getCourse_id().equals(live.getCourse_id()))
+            {
+                l.getALivePlan(day).setLive_start_Date(null);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @author zz
+     * @param user
+     * @return boolean whether write file
+     */
+    public static boolean deleteClient(Client user)
+    {
+        user.setState("Inactive");
+        return IO.write(user,user.getPhone_number());
+    }
+
     public static boolean changeLiveInfo(Trainer t, Live l) throws IOException {
         for( Live i : t.getMy_live())
         {
@@ -393,16 +418,9 @@ public class Control {
         }
         return true;
     }
-    public static boolean cancelLive(Trainer t, Live live, int day) throws IOException {
-        Client c = (Client) IO.read(new Client(),live.getClient_id());
-        for(Live l : c.getMy_live())
-        {
-            if(l.getCourse_id().equals(live.getCourse_id()))
-            {
-                l.getALivePlan(day).setLive_start_Date(null);
-                return true;
-            }
-        }
-        return false;
-    }
+
+
+
+
+
 }

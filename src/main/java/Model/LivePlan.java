@@ -10,6 +10,7 @@ public class LivePlan {
     private String personal_plan;
     private String course_id;
     private String client_id;
+    private String trainer_id;
 
     public LivePlan(String client_id) {
         setLive_url("initial url");
@@ -17,9 +18,11 @@ public class LivePlan {
         setPersonal_plan("initial text");
         this.client_id = client_id;
     }
-    public String toString(){
-        return "use IO.printObject instead.";
+    public LivePlan()
+    {
+
     }
+
 
     public String getLive_url() {
         return live_url;
@@ -59,5 +62,25 @@ public class LivePlan {
 
     public void setClient_id(String client_id) {
         this.client_id = client_id;
+    }
+
+    public String getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(String trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    @Override
+    public String toString() {
+        return "LivePlan{" +
+                "live_url='" + live_url + '\'' +
+                ", live_start_Date=" + live_start_Date +
+                ", personal_plan='" + personal_plan + '\'' +
+                ", course_id='" + course_id + '\'' +
+                ", client_id='" + client_id + '\'' +
+                ", trainer_id='" + trainer_id + '\'' +
+                '}';
     }
 }
