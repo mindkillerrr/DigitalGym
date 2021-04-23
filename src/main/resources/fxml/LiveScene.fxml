@@ -57,7 +57,7 @@
             </ScrollPane>
             <TextArea fx:id="liveInfoText" prefHeight="113.0" prefWidth="404.0" text="Live for this seeesion has been booked.&#10;Live URL: xxx.">
                <font>
-                  <Font size="18.0" />
+                  <Font size="14.0" />
                </font>
             </TextArea>
          </children>

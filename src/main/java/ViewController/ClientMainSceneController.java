@@ -473,4 +473,21 @@ public class ClientMainSceneController {
 
 
     }
+
+    public void deleteAccountClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/DeleteAccountScene.fxml"));
+        Parent parent = loader.load();
+        Scene deleteAccountScene = new Scene(parent);
+        DeleteAccountSceneController controller = loader.getController();
+        controller.client_id = this.client.getPhone_number();
+        controller.stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(deleteAccountScene);
+        deleteAccountScene.setUserData(((Node)actionEvent.getSource()).getScene().getWindow());
+
+        stage.show();
+    }
 }

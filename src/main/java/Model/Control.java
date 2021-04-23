@@ -117,7 +117,6 @@ public class Control {
      */
     public static void deleteClientCourse(String phone_number, String course_id) throws IOException {
         Client client = (Client)IO.read(new Client(),phone_number);
-
         for(int i=0;i<client.getMy_course().size();i++){
             if(client.getMy_course().get(i).equals(course_id)){//find
                 System.out.println("target course found, deleting.");
@@ -145,7 +144,11 @@ public class Control {
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
         for(int i=0;i<live.getLive_plan().size();i++){//cancel live session
             if(live.getLive_plan().get(i).getLive_start_Date()!=null){
+
                 if(live.getLive_plan().get(i).getLive_start_Date().equals(live_plan.getLive_start_Date())){
+                   // System.out.println(live.getLive_plan().get(i).getLive_start_Date());
+                    //System.out.println(trainer.getOccupation().remove(live.getLive_plan().get(i).getLive_start_Date()));
+
                     live.getLive_plan().get(i).setLive_start_Date(null);
                     live.getLive_plan().get(i).setLive_url(null);
                 }
@@ -161,8 +164,9 @@ public class Control {
             if(trainer.getMy_live().get(i).getCourse_id().equals(live_plan.getCourse_id()))
                 trainer.getMy_live().set(i,live);
         }
-        trainer.getOccupation().remove(live_plan.getLive_start_Date());
+        System.out.println(trainer.getOccupation().remove(live_plan.getLive_start_Date()));
         //write back to DB
+        System.out.println(trainer.toString());
         IO.write(client,client.getPhone_number());
         IO.write(trainer,trainer.getPhone_number());
     }
@@ -212,13 +216,23 @@ public class Control {
         System.out.println("deleting live"+live.getCourse_id()+" from client_id");
         Client client = (Client)IO.read(new Client(),client_id);
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
+
         for(int i=0;i<client.getMy_live().size();i++)
-            if(client.getMy_live().get(i).getCourse_id().equals(live.getCourse_id()))
+            if(client.getMy_live().get(i).getCourse_id().equals(live.getCourse_id())){
+                for(LivePlan lp:client.getMy_live().get(i).getLive_plan()){
+                    if(lp.getLive_start_Date()!=null){
+                        cancelLiveSession(lp);
+                    }
+                }
+                trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
                 client.getMy_live().remove(i);//delete from client
+            }
+
         for(int i=0;i<trainer.getMy_live().size();i++)
             if(trainer.getMy_live().get(i).getCourse_id().equals(live.getCourse_id())&&trainer.getMy_live().get(i).getClient_id().equals(client_id))
                 trainer.getMy_live().remove(i);//delete from trainer
         IO.write(client,client_id);
+
         IO.write(trainer,trainer.getPhone_number());
     }
 
@@ -446,27 +460,125 @@ public class Control {
      * @param trainer_id
      * @param date "2021-1-1 0:0:0"
      * @return an arrayList with 4 entries for 4 time slots in a certain date. set null if trainer is free for one slot
-     */
-    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, LocalDate date){
+     */public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, Date date) throws IOException {
         ArrayList<LivePlan> sessions = new ArrayList<LivePlan>();
+        Trainer t = (Trainer) IO.read(new Trainer(),trainer_id);
+        ArrayList<Live> lives= t.getMy_live();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY,6);
+
+        for(int i=1;i<=4;i++)
+        {
+
+            calendar.add(Calendar.HOUR_OF_DAY,2);
+            if(i==3)             calendar.add(Calendar.HOUR_OF_DAY,1);
+
+            Date newdate = calendar.getTime();
+            int flag=0;
+            for(Live l :lives)
+            {
+                ArrayList<LivePlan> livePlans = l.getLive_plan();
+                for(LivePlan liveplan : livePlans)
+                {
+
+                    if(liveplan.getLive_start_Date()!=null&&liveplan.getLive_start_Date().equals(newdate))
+                    {
+                        flag=1;
+                        sessions.add(liveplan);
+                        break;
+                    }
+                }
+
+            }
+            if(flag==0)
+            {
+                //LivePlan nullPlan = new LivePlan();
+                //nullPlan.setTrainer_id(trainer_id);
+                sessions.add(null);
+            }
+        }
 
         return sessions;
     }
     /**
-     * @param live a live object contain client_id and trainer_id. used to update personal plan.
+     * @param l a live object contain client_id and trainer_id. used to update personal plan.
      */
-    public static void updatePeronalLive(Live live){
-
+    public static boolean updatePeronalLive(Live l, int day) throws IOException {
+        Client c = (Client) IO.read(new Client(), l.getClient_id());
+        Trainer t = (Trainer) IO.read(new Trainer(), l.getTrainer_id());
+        for( Live i : c.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
     }
 
     /**
      * used to cancel a live session. remember to cancel both in client and trainer.
      * @param live which contains client_id and trainer_id.
-     * @param live_index target live session index in ArrayList<Live_Plan>.
+     * @param day target live session index in ArrayList<Live_Plan>.
      */
-    public static void cancelPlan(Live live,int live_index){
-
+    public static boolean cancelPlan(Live live,int day) throws IOException {
+        Client c = (Client) IO.read(new Client(),live.getClient_id());
+        for(Live l : c.getMy_live())
+        {
+            if(l.getCourse_id().equals(live.getCourse_id()))
+            {
+                l.getALivePlan(day).setLive_start_Date(null);
+                return true;
+            }
+        }
+        return false;
     }
+
+    /**
+     * @author zz
+     * @param client_id pk
+     * @return boolean whether write file
+     */
+    public static boolean deleteClient(String client_id) throws IOException {
+        /*
+        user.setState("Inactive");
+        return IO.write(user,user.getPhone_number());
+        */
+         return IO.delete(new Client(),client_id);
+    }
+
+    public static boolean changeLiveInfo(Trainer t, Live l) throws IOException {
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                Client c = (Client) IO.read(new Client(),i.getClient_id());
+                for( Live j : c.getMy_live())
+                {
+                    if(j.getCourse_id().equals(l.getCourse_id()))
+                    {
+                        j=l;
+                        j.setClient_id(c.getPhone_number());
+                    }
+                }
+                IO.write(c,c.getPhone_number());
+            }
+        }
+        return true;
+    }
+
+
+
+
+
 
     /**
      * used when pk of client changed

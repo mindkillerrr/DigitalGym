@@ -120,22 +120,6 @@ public class Client extends User{
         }
         my_live.add(live);
     }
-    /**
-     * need to be finished by PZ --PZ  4.14 2130
-     * @param courseID pk of course
-     */
-    public void deleteCourse(String courseID){
-
-    }
-    /**
-     * need to be finished by PZ --PZ  4.14 2130
-     * @param liveID  pk for live
-     */
-    public void deleteLive(Live liveID){
-
-    }
-
-
 
     @Override
     public String toString() {
