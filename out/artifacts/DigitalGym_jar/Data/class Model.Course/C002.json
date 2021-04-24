@@ -1,0 +1,27 @@
+{
+  "course_id":"C002",
+  "name":"Bike courses for starter",
+  "trainer_id":"44444444444",
+  "trainer":"Master Pan",
+  "type":"Bike",
+  "state":"active",
+  "info":"This is a C002",
+  "rank": 1,
+  "price":20.0,
+  "plan":[
+    "Day1 Plan: Bike Basic workout. \n Some plan info...",
+    "Day2 Plan: Bike Basic workout. \n Some plan info...",
+    "Day3 Plan: Bike Basic workout. \n Some plan info...",
+    "Day4 Plan: Bike Basic workout. \n Some plan info...",
+    "Day5 Plan: Bike Basic workout. \n Some plan info...",
+    "Day6 Plan: Bike Basic workout. \n Some plan info..."
+  ],
+  "video_path":[
+    "test.mp4",
+    "test.mp4",
+    "test.mp4",
+    "test.mp4",
+    "test.mp4",
+    "test.mp4"
+  ]
+}
