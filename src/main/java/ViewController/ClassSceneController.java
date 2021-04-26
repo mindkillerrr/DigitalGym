@@ -81,21 +81,20 @@ public class ClassSceneController {
     }
 
     public void watchVideo(ActionEvent actionEvent) throws IOException {
+        int index = tabPane.getSelectionModel().getSelectedIndex();//get day
+        if(index==0) return;//intro page selected no vedio
         Stage stage = new Stage();
-
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/WatchVideo.fxml"));
         Parent WatchVideoParent = loader.load();
         Scene WatchVideoScene = new Scene(WatchVideoParent);
         stage.setScene(WatchVideoScene);
         WatchVideo controller = loader.getController();
-        int index = tabPane.getSelectionModel().getSelectedIndex();
         controller.dayLabel.setText("Day: "+index);
         controller.url = course.getVideo_path().get(index-1);
-        controller.urlLabel.setText(controller.url);
+        //controller.urlLabel.setText(controller.url);
+        controller.courseNameLabel.setText(course.getName());
         stage.show();
-        controller.url = "/test.mp4";
         controller.playVedio();
     }
 

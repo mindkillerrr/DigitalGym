@@ -220,6 +220,7 @@ public class ClientMainSceneController {
             controller.live = (Live) (((Node)actionEvent.getSource()).getUserData());
             controller.previousScene = ((Node)actionEvent.getSource()).getScene();
             controller.setClient(client);
+            classScene.setUserData(controller);
             window.setScene(classScene);
             try {
                 controller.buildScene();//build course scene dynamically according to the course information
@@ -368,7 +369,7 @@ public class ClientMainSceneController {
         mainPageNoticeTextArea.setText(s);
     }
 
-    public void changeEmailButtonCliecked(ActionEvent actionEvent) throws IOException {
+    public void changeEmailButtonClicked(ActionEvent actionEvent) throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         Stage stage = new Stage();
 
 
@@ -380,8 +381,10 @@ public class ClientMainSceneController {
         stage.setScene(changeEmailScene);
         ChangeEmailScene controller = loader.getController();
         controller.client = client;
-
+        controller.mainSceneController = (ClientMainSceneController)(((Node)actionEvent.getSource()).getScene()).getUserData();
         stage.show();
+
+
     }
 
     public void changePasswordButtonClicked(ActionEvent actionEvent) throws IOException {
@@ -392,7 +395,8 @@ public class ClientMainSceneController {
         loader.setLocation(getClass().getResource("/fxml/ChangePassword.fxml"));
         Parent changePassWordParent = loader.load();
         Scene changePassWordScene = new Scene(changePassWordParent);
-
+        ChangePassword controller = loader.getController();
+        controller.client = this.client;
         stage.setScene(changePassWordScene);
 
         stage.show();
@@ -453,7 +457,7 @@ public class ClientMainSceneController {
         premierDiscountPriceLabel.setText(discountPrice+" $ ");
     }
     /**
-     * @author WD & WHY
+     * @author WD,WHY
      *
      * this method save changes of client's body information's changes, and generate generic plan
      * modified by PZ at 4.19 to read client IO again.
@@ -468,5 +472,22 @@ public class ClientMainSceneController {
         myAccountShowPlanTextArea.setText(client.getGeneric_plan());
 
 
+    }
+
+    public void deleteAccountClicked(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/DeleteAccountScene.fxml"));
+        Parent parent = loader.load();
+        Scene deleteAccountScene = new Scene(parent);
+        DeleteAccountSceneController controller = loader.getController();
+        controller.client_id = this.client.getPhone_number();
+        controller.stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(deleteAccountScene);
+        deleteAccountScene.setUserData(((Node)actionEvent.getSource()).getScene().getWindow());
+
+        stage.show();
     }
 }

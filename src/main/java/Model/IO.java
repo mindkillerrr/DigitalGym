@@ -25,6 +25,7 @@ public class IO{
     public static Object read(Object o, String primary_key) throws IOException {
         File file = new File("target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
         //BufferedReader buffered_reader = new BufferedReader(new FileReader("src\\"+primary_key+".json"));
+        System.out.println(file.getPath());
         String content= FileUtils.readFileToString(file,"UTF-8");
         Gson gson;
         try {
@@ -39,7 +40,7 @@ public class IO{
         catch (Exception e)
         {
             e.printStackTrace();
-
+            return  null;
         }
         return o;
     }
@@ -63,7 +64,7 @@ public class IO{
      * @return whether delete file successfully
      * @throws IOException
      */
-    public static boolean Delete_Info(Object o, String primary_key) throws IOException {
+    public static boolean delete(Object o, String primary_key) throws IOException {
         File file = new File("target\\classes\\Data\\"+o.getClass()+"\\"+primary_key+".json");
         return file.delete();
     }
