@@ -19,22 +19,37 @@
         {
             "live_url":"url_for_day1_live",
             "live_start_time":null,
-            "personal_plan":"not modified by trainer"
+            "personal_plan":"not modified by trainer",
+            "client_id": null,
+            "course_id": "L001",
+            "finish": false
         },
         {
             "live_url":"url_for_day2_live",
             "live_start_time":null,
-            "personal_plan":"not modified by trainer"
+            "personal_plan":"not modified by trainer",
+            "client_id": null,
+            "course_id": "L001",
+            "finish": false
+
         },
         {
             "live_url":"url_for_day3_live",
             "live_start_time":null,
-            "personal_plan":"not modified by trainer"
+            "personal_plan":"not modified by trainer",
+            "client_id": null,
+            "course_id": "L001",
+            "finish": false
+
         },
         {
             "live_url":"url_for_day4_live",
             "live_start_time":null,
-            "personal_plan":"not modified by trainer"
+            "personal_plan":"not modified by trainer",
+            "client_id": null,
+            "course_id": "L001",
+            "finish": false
+
         }
     ]
 }

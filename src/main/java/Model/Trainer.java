@@ -85,4 +85,17 @@ public class Trainer extends User{
                 ", state='" + state + '\'' +
                 '}';
     }
+    /**
+     * used to mark a live session as finished
+     * @param live_plan
+     */
+    public void finishLiveSession(LivePlan live_plan) {
+        for(int i=0;i<my_live.size();i++){
+            if(my_live.get(i).getCourse_id().equals(live_plan.getCourse_id())){
+                int index = my_live.get(i).getLive_plan().indexOf(live_plan);
+                //live_plan.setFinish(true);
+                my_live.get(i).getLive_plan().get(index).setFinish(true);
+            }
+        }
+    }
 }

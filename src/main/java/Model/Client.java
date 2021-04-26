@@ -25,10 +25,14 @@ public class Client extends User{
         my_course = new ArrayList<String>();
         my_live = new ArrayList<Live>();
         setGeneric_plan("initial text");
+        setHeight(160.0);
+        setWeight(50.0);
+        setBMI(0.0);
+        setBody_fat_rate(0.0);
 
     }
 
-    public Client() {
+    public Client(){
 
     }
     /**
@@ -98,7 +102,7 @@ public class Client extends User{
         }
         else{
             my_course.add(course_id);
-            IO.write(new Client(),phone_number);
+            //IO.write(new Client(),phone_number);
         }
     }
     /**
@@ -226,5 +230,19 @@ public class Client extends User{
 
     public void setMy_live(ArrayList<Live> my_live) {
         this.my_live = my_live;
+    }
+
+    /**
+     * used to mark a live session as finished
+     * @param live_plan
+     */
+    public void finishLiveSession(LivePlan live_plan) {
+        for(int i=0;i<my_live.size();i++){
+            if(my_live.get(i).getCourse_id().equals(live_plan.getCourse_id())){
+                int index = my_live.get(i).getLive_plan().indexOf(live_plan);
+                //live_plan.setFinish(true);
+                my_live.get(i).getLive_plan().get(index).setFinish(true);
+            }
+        }
     }
 }
