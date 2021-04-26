@@ -316,7 +316,7 @@ public class Control {
      * @param date "2021-1-1 0:0:0"
      * @return an arrayList with 4 entries for 4 time slots in a certain date. set null if trainer is free for one slot
      */
-    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, Date date, int day) throws IOException {
+    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, Date date) throws IOException {
         ArrayList<LivePlan> sessions = new ArrayList<LivePlan>();
         Trainer t = (Trainer) IO.read(new Trainer(),trainer_id);
         ArrayList<Live> lives= t.getMy_live();
@@ -329,13 +329,17 @@ public class Control {
             int flag=0;
             for(Live l :lives)
             {
-                LivePlan livePlan = l.getALivePlan(day);
-                if(livePlan.getLive_start_Date().equals(newdate))
+                ArrayList<LivePlan> livePlans = l.getLive_plan();
+                for(LivePlan liveplan : livePlans)
                 {
-                    flag=1;
-                    sessions.add(livePlan);
-                    break;
+                    if(liveplan.getLive_start_Date().equals(newdate))
+                    {
+                        flag=1;
+                        sessions.add(liveplan);
+                        break;
+                    }
                 }
+
             }
             if(flag==0)
             {
