@@ -457,7 +457,7 @@ public class ClientMainSceneController {
         premierDiscountPriceLabel.setText(discountPrice+" $ ");
     }
     /**
-     * @author WD & WHY
+     * @author WD,WHY
      *
      * this method save changes of client's body information's changes, and generate generic plan
      * modified by PZ at 4.19 to read client IO again.

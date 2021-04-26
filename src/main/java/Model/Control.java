@@ -171,6 +171,11 @@ public class Control {
         IO.write(trainer,trainer.getPhone_number());
     }
 
+    /**
+     * get a live plan finished, may called by trainer or client
+     * @param live_plan
+     * @throws IOException
+     */
     public static void finishLiveSession(LivePlan live_plan) throws IOException {
         Live live = (Live)IO.read(new Live(),live_plan.getCourse_id());
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
@@ -315,10 +320,7 @@ public class Control {
 
 
     /**
-     * @Author JoyceJ
-     * @Description //check what character the user is
-     * @Date 10:38 2021-04-20
-     * @Param [phoneNumber, password]
+     * @author JoyceJ
      * @return java.lang.String
      **/
     public static String checkLoginInfo(String phoneNumber, String password) throws IOException {
@@ -417,6 +419,14 @@ public class Control {
         IO.write(client,client_id);
     }
 
+    /**
+     * called when new client register, generate a new account
+     * @param Username
+     * @param client_id
+     * @param password
+     * @param sex
+     * @throws Exception
+     */
     public static void register(String Username, String client_id, String password, String sex) throws Exception{
         Client client = new Client(client_id, password, Username, sex);
         boolean res = IO.create(client, client_id);
@@ -425,11 +435,8 @@ public class Control {
     }
 
     /**
-     * @Author JoyceJ & yy
-     * @Description Used in forgetPasswordScene and the changePasswordScene in client's main scene
-     * @Date 10:25 2021-04-21
-     * @Param [client_id, newPassword]
-     * @return void
+     * @author JoyceJ and yy
+     * Used in forgetPasswordScene and the changePasswordScene in client's main scene
      **/
     public static void changePassword(String client_id, String newPassword) throws IOException {
 
@@ -438,6 +445,15 @@ public class Control {
         IO.write(client,client_id);
 
     }
+
+    /**
+     * called when client save new body index
+     * @param client_id
+     * @param clientAge
+     * @param clientWeight
+     * @param clientHeight
+     * @throws IOException
+     */
     public static void updateMyAccountPage(String client_id, String clientAge, String clientWeight, String clientHeight) throws IOException {
         Integer age = Integer.parseInt(clientAge);
         Double weight = Double.parseDouble(clientWeight);
@@ -527,7 +543,7 @@ public class Control {
     /**
      * used to cancel a live session. remember to cancel both in client and trainer.
      * @param live which contains client_id and trainer_id.
-     * @param day target live session index in ArrayList<Live_Plan>.
+     * @param day target live session index
      */
     public static boolean cancelPlan(Live live,int day) throws IOException {
         Client c = (Client) IO.read(new Client(),live.getClient_id());
@@ -574,12 +590,6 @@ public class Control {
         }
         return true;
     }
-
-
-
-
-
-
     /**
      * used when pk of client changed
      * @param client_id who wants to change his password
@@ -598,7 +608,7 @@ public class Control {
      * @param t train
      * @param l new live contains new personal plan
      * @param day the date of the new personal plan
-     * @return boolean && boolean
+     * @return true is success
      */
     public  static boolean publishPlan(Client c, Trainer t, Live l, int day)
     {
