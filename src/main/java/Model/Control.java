@@ -117,7 +117,6 @@ public class Control {
      */
     public static void deleteClientCourse(String phone_number, String course_id) throws IOException {
         Client client = (Client)IO.read(new Client(),phone_number);
-
         for(int i=0;i<client.getMy_course().size();i++){
             if(client.getMy_course().get(i).equals(course_id)){//find
                 System.out.println("target course found, deleting.");
@@ -145,7 +144,11 @@ public class Control {
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
         for(int i=0;i<live.getLive_plan().size();i++){//cancel live session
             if(live.getLive_plan().get(i).getLive_start_Date()!=null){
+
                 if(live.getLive_plan().get(i).getLive_start_Date().equals(live_plan.getLive_start_Date())){
+                   // System.out.println(live.getLive_plan().get(i).getLive_start_Date());
+                    //System.out.println(trainer.getOccupation().remove(live.getLive_plan().get(i).getLive_start_Date()));
+
                     live.getLive_plan().get(i).setLive_start_Date(null);
                     live.getLive_plan().get(i).setLive_url(null);
                 }
@@ -161,12 +164,18 @@ public class Control {
             if(trainer.getMy_live().get(i).getCourse_id().equals(live_plan.getCourse_id()))
                 trainer.getMy_live().set(i,live);
         }
-        trainer.getOccupation().remove(live_plan.getLive_start_Date());
+        System.out.println(trainer.getOccupation().remove(live_plan.getLive_start_Date()));
         //write back to DB
+        System.out.println(trainer.toString());
         IO.write(client,client.getPhone_number());
         IO.write(trainer,trainer.getPhone_number());
     }
 
+    /**
+     * get a live plan finished, may called by trainer or client
+     * @param live_plan
+     * @throws IOException
+     */
     public static void finishLiveSession(LivePlan live_plan) throws IOException {
         Live live = (Live)IO.read(new Live(),live_plan.getCourse_id());
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
@@ -212,13 +221,23 @@ public class Control {
         System.out.println("deleting live"+live.getCourse_id()+" from client_id");
         Client client = (Client)IO.read(new Client(),client_id);
         Trainer trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
+
         for(int i=0;i<client.getMy_live().size();i++)
-            if(client.getMy_live().get(i).getCourse_id().equals(live.getCourse_id()))
+            if(client.getMy_live().get(i).getCourse_id().equals(live.getCourse_id())){
+                for(LivePlan lp:client.getMy_live().get(i).getLive_plan()){
+                    if(lp.getLive_start_Date()!=null){
+                        cancelLiveSession(lp);
+                    }
+                }
+                trainer = (Trainer)IO.read(new Trainer(),live.getTrainer_id());
                 client.getMy_live().remove(i);//delete from client
+            }
+
         for(int i=0;i<trainer.getMy_live().size();i++)
             if(trainer.getMy_live().get(i).getCourse_id().equals(live.getCourse_id())&&trainer.getMy_live().get(i).getClient_id().equals(client_id))
                 trainer.getMy_live().remove(i);//delete from trainer
         IO.write(client,client_id);
+
         IO.write(trainer,trainer.getPhone_number());
     }
 
@@ -301,6 +320,60 @@ public class Control {
 
 
     /**
+     * @author JoyceJ
+     * @return java.lang.String
+     **/
+    public static String checkLoginInfo(String phoneNumber, String password) throws IOException {
+        try{
+            //System.out.println("test");
+            Client client = (Client)IO.read(new Client(),phoneNumber);
+            if(client!=null) {
+
+                if(client.password.equals(password))    return "Client";
+                else    return "fail";
+            }
+
+            /*
+            Manager manager = (Manager) IO.read(new Manager(), phoneNumber);
+            System.out.println(manager);
+            if(manager!=null){
+                if(manager.password.equals(password))   return "Manager";
+                else    return "PasswdFail";
+            }else{
+                System.out.println("manager null");
+            }
+
+             */
+        }catch (IOException e) {
+            try{
+                Trainer trainer = (Trainer) IO.read(new Trainer(), phoneNumber);
+                if(trainer!=null){
+                    if(trainer.password.equals(password))   return "Trainer";
+                    else    return "fail";
+                }
+
+            }catch (IOException o){
+                return "fail";
+            }
+
+        }
+        return "fail";
+
+    }
+
+    /**
+     *
+     * @param client client which requesting his courses
+     * @return list of client's lives
+     */
+    public ArrayList<Live> getClientLives(Client client) throws IOException {
+        ArrayList <Live> lives = new ArrayList<Live>();
+        for(Live live:client.getMy_live())
+            lives.add(live);
+        return lives;
+    }
+
+    /**
      * read client and a course to client's subscription
      * @author PZ
      * @param client_id
@@ -346,14 +419,41 @@ public class Control {
         IO.write(client,client_id);
     }
 
+    /**
+     * called when new client register, generate a new account
+     * @param Username
+     * @param client_id
+     * @param password
+     * @param sex
+     * @throws Exception
+     */
     public static void register(String Username, String client_id, String password, String sex) throws Exception{
         Client client = new Client(client_id, password, Username, sex);
         boolean res = IO.create(client, client_id);
-        int res2 = IO.write(client,client_id);
-        //System.out.println(res);
-        //System.out.println(res2);
+        boolean res2 = IO.write(client,client_id);
 
     }
+
+    /**
+     * @author JoyceJ and yy
+     * Used in forgetPasswordScene and the changePasswordScene in client's main scene
+     **/
+    public static void changePassword(String client_id, String newPassword) throws IOException {
+
+        Client client = (Client)IO.read(new Client(),client_id);
+        client.setPassword(newPassword);
+        IO.write(client,client_id);
+
+    }
+
+    /**
+     * called when client save new body index
+     * @param client_id
+     * @param clientAge
+     * @param clientWeight
+     * @param clientHeight
+     * @throws IOException
+     */
     public static void updateMyAccountPage(String client_id, String clientAge, String clientWeight, String clientHeight) throws IOException {
         Integer age = Integer.parseInt(clientAge);
         Double weight = Double.parseDouble(clientWeight);
@@ -376,25 +476,178 @@ public class Control {
      * @param trainer_id
      * @param date "2021-1-1 0:0:0"
      * @return an arrayList with 4 entries for 4 time slots in a certain date. set null if trainer is free for one slot
-     */
-    public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, LocalDate date){
+     */public static ArrayList<LivePlan> getTrainerLiveSession(String trainer_id, Date date) throws IOException {
         ArrayList<LivePlan> sessions = new ArrayList<LivePlan>();
+        Trainer t = (Trainer) IO.read(new Trainer(),trainer_id);
+        ArrayList<Live> lives= t.getMy_live();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY,6);
+
+        for(int i=1;i<=4;i++)
+        {
+
+            calendar.add(Calendar.HOUR_OF_DAY,2);
+            if(i==3)             calendar.add(Calendar.HOUR_OF_DAY,1);
+
+            Date newdate = calendar.getTime();
+            int flag=0;
+            for(Live l :lives)
+            {
+                ArrayList<LivePlan> livePlans = l.getLive_plan();
+                for(LivePlan liveplan : livePlans)
+                {
+
+                    if(liveplan.getLive_start_Date()!=null&&liveplan.getLive_start_Date().equals(newdate))
+                    {
+                        flag=1;
+                        sessions.add(liveplan);
+                        break;
+                    }
+                }
+
+            }
+            if(flag==0)
+            {
+                //LivePlan nullPlan = new LivePlan();
+                //nullPlan.setTrainer_id(trainer_id);
+                sessions.add(null);
+            }
+        }
 
         return sessions;
     }
     /**
-     * @param live a live object contain client_id and trainer_id. used to update personal plan.
+     * @param l a live object contain client_id and trainer_id. used to update personal plan.
      */
-    public static void updatePeronalLive(Live live){
-
+    public static boolean updatePeronalLive(Live l, int day) throws IOException {
+        Client c = (Client) IO.read(new Client(), l.getClient_id());
+        Trainer t = (Trainer) IO.read(new Trainer(), l.getTrainer_id());
+        for( Live i : c.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
     }
 
     /**
      * used to cancel a live session. remember to cancel both in client and trainer.
      * @param live which contains client_id and trainer_id.
-     * @param live_index target live session index in ArrayList<Live_Plan>.
+     * @param day target live session index
      */
-    public static void cancelPlan(Live live,int live_index){
+    public static boolean cancelPlan(Live live,int day) throws IOException {
+        Client c = (Client) IO.read(new Client(),live.getClient_id());
+        for(Live l : c.getMy_live())
+        {
+            if(l.getCourse_id().equals(live.getCourse_id()))
+            {
+                l.getALivePlan(day).setLive_start_Date(null);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    /**
+     * @author zz
+     * @param client_id pk
+     * @return boolean whether write file
+     */
+    public static boolean deleteClient(String client_id) throws IOException {
+        /*
+        user.setState("Inactive");
+        return IO.write(user,user.getPhone_number());
+        */
+         return IO.delete(new Client(),client_id);
+    }
+
+    public static boolean changeLiveInfo(Trainer t, Live l) throws IOException {
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                Client c = (Client) IO.read(new Client(),i.getClient_id());
+                for( Live j : c.getMy_live())
+                {
+                    if(j.getCourse_id().equals(l.getCourse_id()))
+                    {
+                        j=l;
+                        j.setClient_id(c.getPhone_number());
+                    }
+                }
+                IO.write(c,c.getPhone_number());
+            }
+        }
+        return true;
+    }
+    /**
+     * used when pk of client changed
+     * @param client_id who wants to change his password
+     * @param newPhoneNumber is the new phone number which replaces original phone number
+     */
+    public static void changePhoneNumber(String client_id, String newPhoneNumber) throws Exception {
+        Client client = (Client) IO.read(new Client(), client_id);
+        String oldNumber = client.getPhone_number();
+        client.setPhone_number(newPhoneNumber);
+        IO.write(client, client_id);
+        IO.changeFileName(client,oldNumber,client.getPhone_number());
+    }
+    /**
+     * @author zz
+     * @param c client
+     * @param t train
+     * @param l new live contains new personal plan
+     * @param day the date of the new personal plan
+     * @return true is success
+     */
+    public  static boolean publishPlan(Client c, Trainer t, Live l, int day)
+    {
+        for( Live i : c.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        for( Live i : t.getMy_live())
+        {
+            if(i.getCourse_id().equals(l.getCourse_id()))
+            {
+                i.getLive_plan().get(day).setPersonal_plan(l.getLive_plan().get(day).getPersonal_plan());
+            }
+        }
+        return IO.write(c,c.getPhone_number()) && IO.write(t,t.getPhone_number());
+    }
+
+    /**
+     * called to check phoneNumber format
+     * need more function later --PZ 4.22
+     * @param phoneNumber input for check
+     * @return true if valid, otherwise false
+     */
+    public static Boolean checkPhoneNumberFormat(String phoneNumber){
+
+        if(phoneNumber.length()!=11) return false;
+        return true;
+    }
+    /**
+     * called to check password format
+     * need more function later --PZ 4.22
+     * @param password input for check
+     * @return true if valid, otherwise false
+     */
+    public static Boolean checkPasswordFormat(String password){
+        return true;
     }
 }
+

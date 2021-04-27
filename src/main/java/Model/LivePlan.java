@@ -11,18 +11,20 @@ public class LivePlan {
     private String personal_plan;
     private String course_id;
     private String client_id;
+    private String trainer_id;
     private Boolean finish;//false before live , true after live.
 
     public LivePlan(String client_id) {
         setLive_url("initial url");
         setLive_start_Date(null);
         setPersonal_plan("initial text");
-
+        this.client_id = client_id;
+    }
+    public LivePlan()
+    {
 
     }
-    public String toString(){
-        return "use IO.printObject instead.";
-    }
+
 
     public String getLive_url() {
         return live_url;
@@ -83,5 +85,26 @@ public class LivePlan {
     @Override
     public int hashCode() {
         return Objects.hash(getLive_url(), getLive_start_Date(), getPersonal_plan(), getCourse_id(), getClient_id(), getFinish());
+    }
+
+    public String getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(String trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+    @Override
+    public String toString() {
+        return "LivePlan{" +
+                "live_url='" + live_url + '\'' +"\n"+
+                ", live_start_Date=" + live_start_Date +"\n"+
+                ", personal_plan='" + personal_plan + '\'' +"\n"+
+                ", course_id='" + course_id + '\'' +"\n"+
+                ", client_id='" + client_id + '\'' +"\n"+
+                ", trainer_id='" + trainer_id + '\'' +"\n"+
+                ", finish='" + finish + '\'' +"\n"+
+                '}';
     }
 }

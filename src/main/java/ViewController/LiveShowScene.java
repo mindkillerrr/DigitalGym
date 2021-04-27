@@ -19,8 +19,21 @@ public class LiveShowScene {
     public void liveFinishButtonClicked(ActionEvent actionEvent) throws IOException {
         System.out.println(IO.printObject(live_plan));
         Control.finishLiveSession(live_plan);
-        LiveSceneController previousController= (LiveSceneController) ((Node)actionEvent.getSource()).getScene().getUserData();
-        previousController.buildScene();
+
+        try{
+            LiveSceneForTrainerController previousController= (LiveSceneForTrainerController) ((Node)actionEvent.getSource()).getScene().getUserData();
+            previousController.buildScene();
+        }
+        catch (Exception e){
+
+        }
+        try{
+            LiveSceneController previousController= (LiveSceneController) ((Node)actionEvent.getSource()).getScene().getUserData();
+            previousController.buildScene();
+        }
+        catch (Exception e){
+
+        }
         Stage stage = (Stage)(((Node) actionEvent.getSource()).getScene().getWindow());
         stage.close();
     }

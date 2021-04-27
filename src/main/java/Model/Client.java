@@ -25,10 +25,14 @@ public class Client extends User{
         my_course = new ArrayList<String>();
         my_live = new ArrayList<Live>();
         setGeneric_plan("initial text");
+        setHeight(160.0);
+        setWeight(50.0);
+        setBMI(0.0);
+        setBody_fat_rate(0.0);
 
     }
 
-    public Client() {
+    public Client(){
 
     }
     /**
@@ -98,7 +102,7 @@ public class Client extends User{
         }
         else{
             my_course.add(course_id);
-            IO.write(new Client(),phone_number);
+            //IO.write(new Client(),phone_number);
         }
     }
     /**
@@ -116,22 +120,6 @@ public class Client extends User{
         }
         my_live.add(live);
     }
-    /**
-     * need to be finished by PZ --PZ  4.14 2130
-     * @param courseID pk of course
-     */
-    public void deleteCourse(String courseID){
-
-    }
-    /**
-     * need to be finished by PZ --PZ  4.14 2130
-     * @param liveID  pk for live
-     */
-    public void deleteLive(Live liveID){
-
-    }
-
-
 
     @Override
     public String toString() {

@@ -1,0 +1,13 @@
+{
+    "phone_number":"22222222222",
+    "password":"22222222222",
+    "name":"Master Zhang",
+    "state":"active",
+    "occupation":[],
+    "my_course":[
+        "C001"
+    ],
+    "my_live":[
+
+    ]
+}
