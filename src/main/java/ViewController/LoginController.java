@@ -17,6 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import Model.*;
+import javafx.scene.control.Label;
 
 public class LoginController {
 
@@ -24,6 +25,10 @@ public class LoginController {
     public TextField passwordTextField;
     public Button RegisterButton;
     public Label errorLabel;
+    public Label welcomeText;
+    public Button login;
+
+    //nameTextField.getIcons().add(new Image("file:resources/images/"));
 
 
     public void loginButtionClicked(ActionEvent actionEvent) throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
@@ -84,6 +89,8 @@ public class LoginController {
         controller.buildScene();
         //  controller.id = name;
         //System.out.println(controller.client.getName());
+        afterLoginScene.getStylesheets().add
+                (LoginController.class.getResource("/web/login.css").toExternalForm());
         window.show();
     }
 
@@ -104,5 +111,12 @@ public class LoginController {
         afterLoginScene.setUserData(controller);
         controller.buildScene();
         window.show();
+    }
+}
+
+class CSSLabel extends Label {
+
+    public CSSLabel() {
+        getStyleClass().add("folder-icon");
     }
 }
