@@ -1,8 +1,9 @@
+
 .root {
-     -fx-background-image: url("background.png");
+     -fx-background-image: url("2.png");
 }
 button {
-   -fx-text-fill: white;
+   -fx-text-fill: black;
    -fx-font-weight: bold;
    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
