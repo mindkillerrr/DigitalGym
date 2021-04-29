@@ -77,6 +77,8 @@ public class ClassSceneController {
         ClientMainSceneController controller = (ClientMainSceneController) previousScene.getUserData();//get controller of previous scene
         controller.updateClassesInMyClass();
         controller.updateClassesInMainPage();
+        previousScene.getStylesheets().add
+                (ClassSceneController.class.getResource("/web/clientmainscene.css").toExternalForm());
         window.setScene(previousScene);
     }
 

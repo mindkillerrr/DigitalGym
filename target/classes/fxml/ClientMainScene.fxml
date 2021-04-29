@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.ClientMainSceneController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ViewController.ClientMainSceneController">
    <children>
       <TabPane layoutX="14.0" layoutY="14.0" prefHeight="562.0" prefWidth="775.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -120,8 +109,8 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Circle fill="DODGERBLUE" layoutX="56.0" layoutY="56.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Label fx:id="Text" layoutX="118.0" layoutY="40.0" prefHeight="32.0" prefWidth="132.0" text="UserName:">
+                        <Circle fill="DODGERBLUE" layoutX="56.0" layoutY="65.0" radius="56.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Label fx:id="Text" layoutX="118.0" layoutY="40.0" text="UserName:">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -131,12 +120,12 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="premiumLabel" layoutX="270.0" layoutY="80.0" prefHeight="32.0" prefWidth="201.0" text="Premium/Normal">
+                        <Label fx:id="premiumLabel" layoutX="256.0" layoutY="81.0" prefHeight="32.0" prefWidth="201.0" text="Premium/Normal">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="myAccountUserNameLabel" layoutX="270.0" layoutY="41.0" prefHeight="15.0" prefWidth="186.0" text="Panzheng">
+                        <Label fx:id="myAccountUserNameLabel" layoutX="257.0" layoutY="41.0" prefHeight="15.0" prefWidth="186.0" text="Panzheng">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -197,19 +186,19 @@
                               </Button>
                            </children>
                         </FlowPane>
-                        <FlowPane alignment="TOP_CENTER" hgap="10.0" layoutX="388.0" layoutY="426.0" prefHeight="107.0" prefWidth="274.0" vgap="10.0">
+                        <FlowPane alignment="TOP_CENTER" hgap="10.0" layoutX="388.0" layoutY="438.0" prefHeight="130.0" prefWidth="372.0" vgap="10.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#changeEmailButtonClicked" prefHeight="29.0" prefWidth="310.0" text="Change Phone Number">
+                              <Button mnemonicParsing="false" onAction="#changeEmailButtonClicked" text="Change Phone Number">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" prefHeight="29.0" prefWidth="310.0" text="Change Password">
+                              <Button mnemonicParsing="false" onAction="#deleteAccountClicked" text="Delete My Account">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#deleteAccountClicked" prefHeight="29.0" prefWidth="310.0" text="Delete My Account">
+                              <Button mnemonicParsing="false" onAction="#changePasswordButtonClicked" text="Change Password">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -224,8 +213,8 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="65.0" layoutY="64.0" stroke="BLACK" strokeType="INSIDE" width="244.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="467.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" width="243.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="65.0" layoutY="64.0" stroke="WHITE" strokeType="INSIDE" width="244.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="326.0" layoutX="467.0" layoutY="62.0" stroke="WHITE" strokeType="INSIDE" width="243.0" />
                         <Label fx:id="Normal" layoutX="132.0" layoutY="86.0" text="Normal">
                            <font>
                               <Font size="24.0" />
@@ -256,17 +245,17 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Premier" layoutX="540.0" layoutY="76.0" text="Premier">
+                        <Label fx:id="Premier" layoutX="540.0" layoutY="86.0" text="Premier">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Off" layoutX="566.0" layoutY="251.0" text="off">
+                        <Label fx:id="Off" layoutX="557.0" layoutY="253.0" text="off">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="discountRatio" layoutX="479.0" layoutY="255.0" prefHeight="24.0" prefWidth="77.0" textAlignment="RIGHT" textFill="#099e01">
+                        <Label fx:id="discountRatio" layoutX="498.0" layoutY="255.0" prefHeight="24.0" prefWidth="77.0" textAlignment="RIGHT" textFill="#099e01">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -276,18 +265,18 @@
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Label layoutX="543.0" layoutY="288.0" text="Month">
+                        <Label layoutX="572.0" layoutY="288.0" text="Month">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="monthChoiceBox" layoutX="479.0" layoutY="293.0" onAction="#premierMonthSelected" prefHeight="23.0" prefWidth="59.0" />
-                        <Label fx:id="premierOriginalPriceLabel" layoutX="599.0" layoutY="227.0" prefHeight="32.0" prefWidth="100.0">
+                        <ComboBox fx:id="monthChoiceBox" layoutX="504.0" layoutY="287.0" onAction="#premierMonthSelected" />
+                        <Label fx:id="premierOriginalPriceLabel" layoutX="617.0" layoutY="252.0" prefHeight="32.0" prefWidth="100.0">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="premierDiscountPriceLabel" layoutX="596.0" layoutY="263.0" prefHeight="32.0" prefWidth="106.0" textFill="#006b20">
+                        <Label fx:id="premierDiscountPriceLabel" layoutX="658.0" layoutY="290.0" prefHeight="32.0" prefWidth="106.0" textFill="#006b20">
                            <font>
                               <Font size="24.0" />
                            </font>

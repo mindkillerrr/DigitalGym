@@ -435,6 +435,8 @@ public class ClientMainSceneController {
         controller.client = client;
         controller.buildScene();
         controller.mainSceneController = local_controller;
+        PaymentScene.getStylesheets().add
+                (ClientMainSceneController.class.getResource("/web/clientmainscene.css").toExternalForm());
 
         stage.show();
 
@@ -449,6 +451,7 @@ public class ClientMainSceneController {
      * @throws IOException
      */
     public void premierMonthSelected() throws IOException {
+
         Integer month = (Integer) (monthChoiceBox.getValue());
         //System.out.println(month);
         double originPrice = month * Policy.premium_price;
