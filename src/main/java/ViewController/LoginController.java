@@ -90,7 +90,7 @@ public class LoginController {
         //  controller.id = name;
         //System.out.println(controller.client.getName());
         afterLoginScene.getStylesheets().add
-                (LoginController.class.getResource("/web/login.css").toExternalForm());
+                (LoginController.class.getResource("/web/clientmainscene.css").toExternalForm());
         window.show();
     }
 
